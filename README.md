@@ -1,6 +1,3 @@
-Here’s a **minimal, clean, professional README** for die **Betreuer-App** – perfekt für GitHub:
-
----
 
 # **Betreuer-App**
 
