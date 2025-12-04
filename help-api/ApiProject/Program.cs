@@ -47,8 +47,16 @@ builder.Services.AddAuthentication("Bearer")
     });
 
 // Database
-builder.Services.AddDbContext<ThesisDbContext>(options =>
-    options.UseSqlite("Data Source=thesis.db"));
+if (builder.Environment.IsDevelopment() && !builder.Configuration.GetValue<bool>("UseSqlite"))
+{
+    builder.Services.AddDbContext<ThesisDbContext>(options =>
+        options.UseInMemoryDatabase("TestDb"));
+}
+else
+{
+    builder.Services.AddDbContext<ThesisDbContext>(options =>
+        options.UseSqlite("Data Source=thesis.db"));
+}
 
 // Services
 builder.Services.AddScoped<IUserService, UserService>();

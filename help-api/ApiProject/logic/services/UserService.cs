@@ -15,10 +15,33 @@ public sealed class UserService : IUserService
         _context = context;
     }
 
-    public async Task<PaginatedResult<User>> GetAllAsync(int page, int pageSize)
+    public async Task<PaginatedResult<User>> GetAllAsync(int page, int pageSize, string? email = null, string? firstName = null, string? lastName = null, string? role = null)
     {
-        var totalCount = await _context.Users.CountAsync();
-        var items = await _context.Users
+        var query = _context.Users.AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(email))
+        {
+            query = query.Where(u => u.Email.Contains(email));
+        }
+
+        if (!string.IsNullOrWhiteSpace(firstName))
+        {
+            query = query.Where(u => u.FirstName.Contains(firstName));
+        }
+
+        if (!string.IsNullOrWhiteSpace(lastName))
+        {
+            query = query.Where(u => u.LastName.Contains(lastName));
+        }
+
+        if (!string.IsNullOrWhiteSpace(role))
+        {
+            var normalizedRole = role.Trim().ToUpperInvariant();
+            query = query.Where(u => u.UserRoles.Any(ur => ur.Role != null && ur.Role.Name == normalizedRole));
+        }
+
+        var totalCount = await query.CountAsync();
+        var items = await query
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync();

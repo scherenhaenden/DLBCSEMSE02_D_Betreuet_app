@@ -17,9 +17,15 @@ public sealed class UserController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<PaginatedResponse<UserResponse>>> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+    public async Task<ActionResult<PaginatedResponse<UserResponse>>> GetAll(
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 10,
+        [FromQuery] string? email = null,
+        [FromQuery] string? firstName = null,
+        [FromQuery] string? lastName = null,
+        [FromQuery] string? role = null)
     {
-        var result = await _userService.GetAllAsync(page, pageSize);
+        var result = await _userService.GetAllAsync(page, pageSize, email, firstName, lastName, role);
         var userResponses = result.Items
             .Select(u => new UserResponse
             {
