@@ -1,8 +1,10 @@
-using ApiProject.Db;
-using ApiProject.Logic;
+using ApiProject.Db.Entities;
+using ApiProject.Logic.Services;
+using ApiProject.Logic.Models;
+using ApiProject.Api.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ApiProject.Api;
+namespace ApiProject.Api.Controllers;
 
 [ApiController]
 [Route("theses")]

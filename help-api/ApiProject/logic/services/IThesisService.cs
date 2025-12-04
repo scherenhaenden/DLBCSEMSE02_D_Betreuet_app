@@ -1,6 +1,8 @@
 using ApiProject.Db;
+using ApiProject.Db.Entities;
+using ApiProject.Logic.Models;
 
-namespace ApiProject.Logic;
+namespace ApiProject.Logic.Services;
 
 /// <summary>
 /// Schnittstelle für den Thesis-Service, der CRUD-Operationen für Thesen bereitstellt.

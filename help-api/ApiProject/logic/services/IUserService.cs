@@ -1,6 +1,7 @@
 using ApiProject.Db;
+using ApiProject.Db.Entities;
 
-namespace ApiProject.Logic;
+namespace ApiProject.Logic.Services;
 
 public interface IUserService
 {

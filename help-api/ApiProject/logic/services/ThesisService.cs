@@ -1,21 +1,25 @@
-using ApiProject.Db;
+using ApiProject.Db.Context;
+using ApiProject.Db.Entities;
+using ApiProject.Logic.Models;
 
-namespace ApiProject.Logic;
+namespace ApiProject.Logic.Services;
 
 /// <summary>
-/// Implementierung des Thesis-Service mit In-Memory-Speicher.
+/// Implementierung des Thesis-Service mit Datenbank-Speicher.
 /// </summary>
 public sealed class ThesisService : IThesisService
 {
+    private readonly ThesisDbContext _context;
     private readonly IUserService _userService;
-    private readonly List<Thesis> _theses = new();
 
     /// <summary>
     /// Initialisiert eine neue Instanz des ThesisService.
     /// </summary>
+    /// <param name="context">Der Datenbank-Kontext.</param>
     /// <param name="userService">Der User-Service für Validierungen.</param>
-    public ThesisService(IUserService userService)
+    public ThesisService(ThesisDbContext context, IUserService userService)
     {
+        _context = context;
         _userService = userService;
     }
 
@@ -25,7 +29,7 @@ public sealed class ThesisService : IThesisService
     /// <returns>Eine schreibgeschützte Sammlung aller Thesen.</returns>
     public IReadOnlyCollection<Thesis> GetAll()
     {
-        return _theses.AsReadOnly();
+        return _context.Theses.ToList();
     }
 
     /// <summary>
@@ -35,7 +39,7 @@ public sealed class ThesisService : IThesisService
     /// <returns>Die These oder null, wenn nicht gefunden.</returns>
     public Thesis? GetById(Guid id)
     {
-        return _theses.SingleOrDefault(t => t.Id == id);
+        return _context.Theses.SingleOrDefault(t => t.Id == id);
     }
 
     /// <summary>
@@ -80,8 +84,9 @@ public sealed class ThesisService : IThesisService
             Status             = ThesisStatus.Draft // Standardstatus
         };
 
-        // Zur Liste hinzufügen
-        _theses.Add(thesis);
+        // Zur Datenbank hinzufügen
+        _context.Theses.Add(thesis);
+        _context.SaveChanges();
         return thesis;
     }
 
@@ -96,7 +101,7 @@ public sealed class ThesisService : IThesisService
     public Thesis UpdateThesis(Guid id, ThesisUpdateRequest request)
     {
         // These finden
-        var thesis = GetById(id);
+        var thesis = _context.Theses.SingleOrDefault(t => t.Id == id);
         if (thesis is null)
         {
             throw new KeyNotFoundException("Thesis not found.");
@@ -149,6 +154,7 @@ public sealed class ThesisService : IThesisService
             thesis.TopicId = request.TopicId.Value;
         }
 
+        _context.SaveChanges();
         return thesis;
     }
 
@@ -160,13 +166,14 @@ public sealed class ThesisService : IThesisService
     public bool DeleteThesis(Guid id)
     {
         // These finden
-        var thesis = GetById(id);
+        var thesis = _context.Theses.SingleOrDefault(t => t.Id == id);
         if (thesis is null)
         {
             return false;
         }
-        // Aus Liste entfernen
-        _theses.Remove(thesis);
+        // Aus Datenbank entfernen
+        _context.Theses.Remove(thesis);
+        _context.SaveChanges();
         return true;
     }
 }
