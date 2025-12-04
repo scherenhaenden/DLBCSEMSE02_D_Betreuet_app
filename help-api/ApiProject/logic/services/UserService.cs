@@ -139,6 +139,8 @@ public sealed class UserService : IUserService
 
             user.UserRoles.Add(userRole);
             role.UserRoles.Add(userRole);
+
+            _context.UserRoles.Add(userRole);
         }
 
         _context.Users.Add(user);

@@ -48,7 +48,7 @@ public class IntegrationTestBase : WebApplicationFactory<Program>, IAsyncDisposa
 
             services.AddDbContext<ThesisDbContext>(options =>
             {
-                options.UseInMemoryDatabase("TestDb");
+                options.UseInMemoryDatabase(Guid.NewGuid().ToString());
             });
         });
     }
