@@ -4,16 +4,16 @@ public class Thesis {
     // Enums
 
     public enum Status {
-        In_abstimmung, Angemeldet, Abgegeben, Kolloquim_abgehalten
+        IN_ABSTIMMUNG, ANGEMELDET, ABGEGEBEN, KOLLOQUIUM_ABGEHALTEN
     }
 
     public enum Rechnungsstatus{
-        keine, gestellt, beglichen
+        KEINE, GESTELLT, BEGLICHEN
     }
 
     // Attribute
 
-    private int id;
+    private int ID;
     private String titel;
     private Status status;
     private String fachgebiet;
@@ -27,16 +27,16 @@ public class Thesis {
 
 // Konstruktor
 
-public Arbeit(int id, String titel, Status status, String fachgebiet, int studentId,
-                    int betreuerId, int zweitgutachterId, String exposePfad,
+public Thesis(int ID, String titel, Status status, String fachgebiet, int studentID,
+                    int betreuerID, int zweitgutachterID, String exposePfad,
                     Rechnungsstatus rechnungsstatus) {
-        this.id = id;
+        this.ID = ID;
         this.titel = titel;
         this.status = status;
         this.fachgebiet = fachgebiet;
-        this.studentId = studentId;
-        this.betreuerId = betreuerId;
-        this.zweitgutachterId = zweitgutachterId;
+        this.studentID = studentID;
+        this.betreuerID = betreuerID;
+        this.zweitgutachterID = zweitgutachterID;
         this.exposePfad = exposePfad;
         this.rechnungsstatus = rechnungsstatus;
     }
@@ -44,8 +44,8 @@ public Arbeit(int id, String titel, Status status, String fachgebiet, int studen
 
 // Methoden
 
-public int getId() {
-        return id;
+public int getID() {
+        return ID;
     }
 
 
@@ -73,28 +73,28 @@ public void setFachgebiet(String fachgebiet) {
         this.fachgebiet = fachgebiet;
     }
 
-public int getStudentId() {
-        return studentId;
+public int getStudentID() {
+        return studentID;
     }
 
-public void setStudentId(int studentId) {
-        this.studentId = studentId;
+public void setStudentID(int studentID) {
+        this.studentID = studentID;
     }
 
-public int getBetreuerId() {
-        return betreuerId;
+public int getBetreuerID() {
+        return betreuerID;
     }
 
-public void setBetreuerId(int betreuerId) {
-        this.betreuerId = betreuerId;
+public void setBetreuerID(int betreuerID) {
+        this.betreuerID = betreuerID;
     }
 
-public int getZweitgutachterId() {
-        return zweitgutachterId;
+public int getZweitgutachterID() {
+        return zweitgutachterID;
     }
 
-public void setZweitgutachterId(int zweitgutachterId) {
-        this.zweitgutachterId = zweitgutachterId;
+public void setZweitgutachterID(int zweitgutachterID) {
+        this.zweitgutachterID = zweitgutachterID;
     }
 
 public String getExposePfad() {
