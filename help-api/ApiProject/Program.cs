@@ -11,16 +11,29 @@ builder.WebHost.UseUrls(builder.Configuration["Urls"]);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.ConfigureSwagger();
 builder.Services.AddControllers();
-builder.Services.Configure<AppSettings>(builder.Configuration);
 builder.Services.ConfigureJwtAuthentication(builder.Configuration);
 builder.Services.ConfigureDatabase(builder.Configuration);
 builder.Services.ConfigureBusinessLogicServices();
+builder.Services.AddScoped<SeedService>();
 
 var app = builder.Build();
+string directory = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", ".."));
+
+
+
+// Seed the database
+using (var scope = app.Services.CreateScope())
+{
+    var seedService = scope.ServiceProvider.GetRequiredService<SeedService>();
+    await seedService.SeedAsync();
+}
+
+// get current directory
+
+
+
 
 // Configure the HTTP request pipeline.
-app.EnsureDatabaseCreated();
-
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
