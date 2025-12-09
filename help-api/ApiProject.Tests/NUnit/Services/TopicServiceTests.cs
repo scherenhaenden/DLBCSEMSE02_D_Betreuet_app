@@ -1,4 +1,3 @@
-using ApiProject.Db.Entities;
 using ApiProject.Logic.Services;
 using Moq;
 

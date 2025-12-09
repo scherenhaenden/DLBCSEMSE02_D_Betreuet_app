@@ -1,6 +1,6 @@
 using ApiProject.Api.Controllers;
-using ApiProject.Api.Models;
-using ApiProject.Db.Entities;
+using ApiProject.ApiLogic.models;
+using ApiProject.DatabaseAccess.entities;
 using ApiProject.Logic.Models;
 using ApiProject.Logic.Services;
 using Microsoft.AspNetCore.Mvc;

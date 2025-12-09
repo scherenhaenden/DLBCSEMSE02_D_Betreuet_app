@@ -1,6 +1,6 @@
 using System.Net;
 using System.Net.Http.Json;
-using ApiProject.Api.Models;
+using ApiProject.ApiLogic.models;
 using FluentAssertions;
 
 namespace ApiProject.Tests.Integration;

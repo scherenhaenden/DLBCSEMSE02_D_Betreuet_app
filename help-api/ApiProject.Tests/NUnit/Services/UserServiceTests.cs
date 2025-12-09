@@ -1,4 +1,4 @@
-using ApiProject.Db.Entities;
+using ApiProject.DatabaseAccess.entities;
 using ApiProject.Logic.Services;
 using Microsoft.EntityFrameworkCore;
 using Moq;

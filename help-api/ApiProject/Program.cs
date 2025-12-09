@@ -1,26 +1,23 @@
-using ApiProject.Logic.Services;
-using Microsoft.OpenApi;
 using Microsoft.EntityFrameworkCore;
-using ApiProject.Db.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure Kestrel to use URLs from appsettings.json
 builder.WebHost.UseUrls(builder.Configuration["Urls"]);
 
-// API-Endpunkte für Swagger aktivieren
+// Enable API endpoints for Swagger
 builder.Services.AddEndpointsApiExplorer();
 
-// Swagger hinzufügen mit Info-Dokumentation
+// Add Swagger with info documentation
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
     {
         Title = "Thesis Management API",
         Version = "v1",
-        Description = "API für die Verwaltung von Thesen, Benutzern, Rollen und Themen."
+        Description = "API for managing theses, users, roles, and topics."
     });
-    // XML-Kommentare für Dokumentation einbinden (falls XML-Datei vorhanden)
+    // Include XML comments for documentation (if XML file exists)
     var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     if (File.Exists(xmlPath))
@@ -29,7 +26,7 @@ builder.Services.AddSwaggerGen(c =>
     }
 });
 
-// MVC-Controller
+// MVC Controllers
 builder.Services.AddControllers();
 
 // Add JWT Authentication
@@ -75,7 +72,7 @@ using (var scope = app.Services.CreateScope())
     db.Database.EnsureCreated();
 }
 
-// Swagger und SwaggerUI aktivieren (nur in Entwicklung)
+// Enable Swagger and SwaggerUI (only in development)
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -94,6 +91,5 @@ app.UseDefaultFiles();
 app.UseStaticFiles();
 
 app.MapControllers();
-
 
 app.Run();
