@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace ApiProject.BusinessLogic.Models
 {
     public class PaginatedResultBusinessLogicModel<T>

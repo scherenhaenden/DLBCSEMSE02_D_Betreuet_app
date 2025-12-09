@@ -1,5 +1,3 @@
-using System;
-using System.Threading.Tasks;
 using ApiProject.BusinessLogic.Models;
 
 namespace ApiProject.BusinessLogic.Services

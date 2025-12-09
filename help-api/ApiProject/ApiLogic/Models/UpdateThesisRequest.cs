@@ -1,5 +1,3 @@
-using System;
-
 namespace ApiProject.ApiLogic.Models
 {
     public class UpdateThesisRequest

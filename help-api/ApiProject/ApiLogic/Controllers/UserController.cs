@@ -1,5 +1,3 @@
-using System.Linq;
-using System.Threading.Tasks;
 using ApiProject.ApiLogic.Models;
 using ApiProject.BusinessLogic.Services;
 using Microsoft.AspNetCore.Mvc;

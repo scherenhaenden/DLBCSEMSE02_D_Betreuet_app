@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 namespace ApiProject.ApiLogic.Models
 {
     public class UpdateTopicRequest
