@@ -1,6 +1,9 @@
+using System;
+using System.Collections.Generic;
+
 namespace ApiProject.BusinessLogic.Models
 {
-    public class TopicUpdateRequest
+    public class TopicUpdateRequestBusinessLogicModel
     {
         public string? Title { get; set; }
         public string? Description { get; set; }

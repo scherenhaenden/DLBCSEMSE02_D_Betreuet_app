@@ -1,3 +1,5 @@
+using System;
+using System.Threading.Tasks;
 using ApiProject.BusinessLogic.Models;
 
 namespace ApiProject.BusinessLogic.Services
@@ -10,27 +12,27 @@ namespace ApiProject.BusinessLogic.Services
         /// <summary>
         /// Returns all topics in a paginated result.
         /// </summary>
-        Task<PaginatedResult<Topic>> GetAllAsync(int page, int pageSize);
+        Task<PaginatedResultBusinessLogicModel<TopicBusinessLogicModel>> GetAllAsync(int page, int pageSize);
 
         /// <summary>
         /// Returns a topic by its ID.
         /// </summary>
-        Task<Topic?> GetByIdAsync(Guid id);
+        Task<TopicBusinessLogicModel?> GetByIdAsync(Guid id);
 
         /// <summary>
         /// Searches for topics by title or subject area.
         /// </summary>
-        Task<PaginatedResult<Topic>> SearchAsync(string searchTerm, int page, int pageSize);
+        Task<PaginatedResultBusinessLogicModel<TopicBusinessLogicModel>> SearchAsync(string searchTerm, int page, int pageSize);
 
         /// <summary>
         /// Creates a new topic.
         /// </summary>
-        Task<Topic> CreateTopicAsync(TopicCreateRequest request);
+        Task<TopicBusinessLogicModel> CreateTopicAsync(TopicCreateRequestBusinessLogicModel request);
 
         /// <summary>
         /// Updates an existing topic.
         /// </summary>
-        Task<Topic> UpdateTopicAsync(Guid id, TopicUpdateRequest request);
+        Task<TopicBusinessLogicModel> UpdateTopicAsync(Guid id, TopicUpdateRequestBusinessLogicModel request);
 
         /// <summary>
         /// Deletes a topic by its ID.

@@ -57,7 +57,7 @@ namespace ApiProject.ApiLogic.Controllers
             return Ok(response);
         }
 
-        private string GenerateJwtToken(BL.User user)
+        private string GenerateJwtToken(BL.UserBusinessLogicModel user)
         {
             var claims = new List<Claim>
             {

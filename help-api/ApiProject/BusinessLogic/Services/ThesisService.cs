@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using ApiProject.BusinessLogic.Mappers;
 using ApiProject.BusinessLogic.Models;
 using ApiProject.DatabaseAccess.Context;
@@ -20,7 +24,7 @@ namespace ApiProject.BusinessLogic.Services
             _userService = userService;
         }
 
-        public async Task<PaginatedResult<Thesis>> GetAllAsync(int page, int pageSize)
+        public async Task<PaginatedResultBusinessLogicModel<ThesisBusinessLogicModel>> GetAllAsync(int page, int pageSize)
         {
             var query = _context.Theses
                 .Include(t => t.Status)
@@ -33,16 +37,16 @@ namespace ApiProject.BusinessLogic.Services
                 .Take(pageSize)
                 .ToListAsync();
 
-            return new PaginatedResult<Thesis>
+            return new PaginatedResultBusinessLogicModel<ThesisBusinessLogicModel>
             {
-                Items = items.Select(ThesisMapper.ToBusinessModel).ToList(),
+                Items = items.Select(ThesisBusinessLogicMapper.ToBusinessModel).ToList(),
                 TotalCount = totalCount,
                 Page = page,
                 PageSize = pageSize
             };
         }
 
-        public async Task<Thesis?> GetByIdAsync(Guid id)
+        public async Task<ThesisBusinessLogicModel?> GetByIdAsync(Guid id)
         {
             var thesis = await _context.Theses
                 .Include(t => t.Status)
@@ -50,10 +54,10 @@ namespace ApiProject.BusinessLogic.Services
                 .Include(t => t.Document)
                 .SingleOrDefaultAsync(t => t.Id == id);
 
-            return ThesisMapper.ToBusinessModel(thesis);
+            return ThesisBusinessLogicMapper.ToBusinessModel(thesis);
         }
 
-        public async Task<Thesis> CreateThesisAsync(ThesisCreateRequest request)
+        public async Task<ThesisBusinessLogicModel> CreateThesisAsync(ThesisCreateRequestBusinessLogicModel request)
         {
             if (!await _userService.UserHasRoleAsync(request.OwnerId, "STUDENT"))
             {
@@ -90,7 +94,7 @@ namespace ApiProject.BusinessLogic.Services
             return createdThesis!;
         }
 
-        public async Task<Thesis> UpdateThesisAsync(Guid id, ThesisUpdateRequest request)
+        public async Task<ThesisBusinessLogicModel> UpdateThesisAsync(Guid id, ThesisUpdateRequestBusinessLogicModel request)
         {
             var thesis = await _context.Theses.SingleOrDefaultAsync(t => t.Id == id);
             if (thesis == null)
@@ -109,11 +113,29 @@ namespace ApiProject.BusinessLogic.Services
 
             if (request.Title != null) thesis.Title = request.Title.Trim();
             if (request.SubjectArea != null) thesis.SubjectArea = request.SubjectArea.Trim();
-            if (request.StatusId.HasValue) thesis.StatusId = request.StatusId.Value;
-            if (request.BillingStatusId.HasValue) thesis.BillingStatusId = request.BillingStatusId.Value;
+            // TODO: fix this too
+            //if (request.StatusId.HasValue) thesis.StatusId = request.StatusId.Value;
+            //if (request.BillingStatusId.HasValue) thesis.BillingStatusId = request.BillingStatusId.Value;
             if (request.TutorId.HasValue) thesis.TutorId = request.TutorId.Value;
             if (request.SecondSupervisorId.HasValue) thesis.SecondSupervisorId = request.SecondSupervisorId.Value;
             if (request.TopicId.HasValue) thesis.TopicId = request.TopicId.Value;
+
+            if (request.StatusName != null)
+            {
+                var status = await _context.ThesisStatuses.SingleOrDefaultAsync(s => s.Name == request.StatusName);
+                if (status != null)
+                {
+                    thesis.StatusId = status.Id;
+                }
+            }
+            if (request.BillingStatusName != null)
+            {
+                var billingStatus = await _context.BillingStatuses.SingleOrDefaultAsync(b => b.Name == request.BillingStatusName);
+                if (billingStatus != null)
+                {
+                    thesis.BillingStatusId = billingStatus.Id;
+                }
+            }
 
             await _context.SaveChangesAsync();
             

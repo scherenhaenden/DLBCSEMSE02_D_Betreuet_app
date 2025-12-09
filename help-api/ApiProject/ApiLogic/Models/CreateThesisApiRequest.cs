@@ -11,5 +11,4 @@ public sealed class CreateThesisApiRequest
 
     public int ProgressPercent { get; set; }
     public string? ExposePath { get; set; }
-    public BillingStatus BillingStatus { get; set; } = BillingStatus.None;
 }

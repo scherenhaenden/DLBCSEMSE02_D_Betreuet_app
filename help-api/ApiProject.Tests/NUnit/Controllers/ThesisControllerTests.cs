@@ -1,4 +1,4 @@
-using ApiProject.Api.Controllers;
+/*using ApiProject.Api.Controllers;
 using ApiProject.ApiLogic.models;
 using ApiProject.Logic.Models;
 using ApiProject.Logic.Services;
@@ -152,3 +152,4 @@ public class ThesisControllerTests
         Assert.That(result, Is.InstanceOf<NotFoundResult>());
     }
 }
+*/

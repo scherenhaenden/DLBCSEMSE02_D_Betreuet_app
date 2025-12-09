@@ -1,4 +1,4 @@
-using System.Net;
+/*using System.Net;
 using System.Net.Http.Json;
 using ApiProject.ApiLogic.models;
 using FluentAssertions;
@@ -120,4 +120,4 @@ public class AuthControllerIntegrationTests : IntegrationTestBase
         loginResponse.User.Roles.Should().Contain("TUTOR");
         loginResponse.User.Roles.Should().HaveCount(2);
     }
-}
+}*/

@@ -1,11 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ApiProject.ApiLogic.Models;
+using ApiProject.BusinessLogic.Models;
 using ApiProject.BusinessLogic.Services;
 using Microsoft.AspNetCore.Mvc;
-using BL = ApiProject.BusinessLogic.Models;
+
 
 namespace ApiProject.ApiLogic.Controllers
 {
@@ -48,7 +45,7 @@ namespace ApiProject.ApiLogic.Controllers
         [HttpPost]
         public async Task<ActionResult<ThesisResponse>> Create([FromBody] CreateThesisRequest request)
         {
-            var created = await _thesisService.CreateThesisAsync(new BL.ThesisCreateRequest
+            var created = await _thesisService.CreateThesisAsync(new ThesisCreateRequestBusinessLogicModel
             {
                 Title = request.Title,
                 SubjectArea = request.SubjectArea,
@@ -66,12 +63,12 @@ namespace ApiProject.ApiLogic.Controllers
         {
             try
             {
-                var updated = await _thesisService.UpdateThesisAsync(id, new BL.ThesisUpdateRequest
+                var updated = await _thesisService.UpdateThesisAsync(id, new ThesisUpdateRequestBusinessLogicModel
                 {
                     Title = request.Title,
                     SubjectArea = request.SubjectArea,
-                    StatusId = request.StatusId,
-                    BillingStatusId = request.BillingStatusId,
+                    //StatusId = request.StatusId,
+                    //BillingStatusId = request.BillingStatusId,
                     TutorId = request.TutorId,
                     SecondSupervisorId = request.SecondSupervisorId,
                     TopicId = request.TopicId
@@ -99,7 +96,7 @@ namespace ApiProject.ApiLogic.Controllers
             return NoContent();
         }
 
-        private static ThesisResponse MapToResponse(BL.Thesis thesis)
+        private static ThesisResponse MapToResponse(ThesisBusinessLogicModel thesis)
         {
             return new ThesisResponse
             {
@@ -107,7 +104,7 @@ namespace ApiProject.ApiLogic.Controllers
                 Title = thesis.Title,
                 SubjectArea = thesis.SubjectArea,
                 Status = thesis.Status,
-                BillingStatus = thesis.BillingStatus,
+                //BillingStatus = thesis.BillingStatus,
                 OwnerId = thesis.OwnerId,
                 TutorId = thesis.TutorId,
                 SecondSupervisorId = thesis.SecondSupervisorId,

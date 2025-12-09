@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using ApiProject.BusinessLogic.Mappers;
 using ApiProject.BusinessLogic.Models;
 using ApiProject.DatabaseAccess.Context;
@@ -15,7 +19,7 @@ namespace ApiProject.BusinessLogic.Services
             _context = context;
         }
 
-        public async Task<PaginatedResult<User>> GetAllAsync(int page, int pageSize, string? email = null, string? firstName = null, string? lastName = null, string? role = null)
+        public async Task<PaginatedResultBusinessLogicModel<UserBusinessLogicModel>> GetAllAsync(int page, int pageSize, string? email = null, string? firstName = null, string? lastName = null, string? role = null)
         {
             var query = _context.Users
                 .Include(u => u.UserRoles)
@@ -46,36 +50,36 @@ namespace ApiProject.BusinessLogic.Services
                 .Take(pageSize)
                 .ToListAsync();
 
-            return new PaginatedResult<User>
+            return new PaginatedResultBusinessLogicModel<UserBusinessLogicModel>
             {
-                Items = items.Select(UserMapper.ToBusinessModel).ToList(),
+                Items = items.Select(UserBusinessLogicMapper.ToBusinessModel).ToList(),
                 TotalCount = totalCount,
                 Page = page,
                 PageSize = pageSize
             };
         }
 
-        public async Task<User?> GetByIdAsync(Guid id)
+        public async Task<UserBusinessLogicModel?> GetByIdAsync(Guid id)
         {
             var user = await _context.Users
                 .Include(u => u.UserRoles)
                 .ThenInclude(ur => ur.Role)
                 .SingleOrDefaultAsync(u => u.Id == id);
 
-            return UserMapper.ToBusinessModel(user);
+            return UserBusinessLogicMapper.ToBusinessModel(user);
         }
 
-        public async Task<User?> GetByEmailAsync(string email)
+        public async Task<UserBusinessLogicModel?> GetByEmailAsync(string email)
         {
             var user = await _context.Users
                 .Include(u => u.UserRoles)
                 .ThenInclude(ur => ur.Role)
                 .SingleOrDefaultAsync(u => u.Email == email);
             
-            return UserMapper.ToBusinessModel(user);
+            return UserBusinessLogicMapper.ToBusinessModel(user);
         }
 
-        public async Task<User> CreateUserAsync(string firstName, string lastName, string email, string password, IEnumerable<string> roleNames)
+        public async Task<UserBusinessLogicModel> CreateUserAsync(string firstName, string lastName, string email, string password, IEnumerable<string> roleNames)
         {
             if (await _context.Users.AnyAsync(u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase)))
             {

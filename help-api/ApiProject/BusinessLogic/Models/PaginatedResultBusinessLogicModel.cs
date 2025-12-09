@@ -1,6 +1,8 @@
+using System.Collections.Generic;
+
 namespace ApiProject.BusinessLogic.Models
 {
-    public class PaginatedResult<T>
+    public class PaginatedResultBusinessLogicModel<T>
     {
         public List<T> Items { get; set; }
         public int TotalCount { get; set; }

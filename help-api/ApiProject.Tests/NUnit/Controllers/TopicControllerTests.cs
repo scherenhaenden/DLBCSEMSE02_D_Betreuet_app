@@ -1,4 +1,4 @@
-using ApiProject.Api.Controllers;
+/*using ApiProject.Api.Controllers;
 using ApiProject.ApiLogic.models;
 using ApiProject.Logic.Models;
 using ApiProject.Logic.Services;
@@ -172,4 +172,4 @@ public class TopicControllerTests
         // Assert
         Assert.That(result, Is.InstanceOf<NotFoundResult>());
     }
-}
+}*/

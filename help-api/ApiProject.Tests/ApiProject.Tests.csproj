@@ -26,7 +26,7 @@
 
     <ItemGroup>
       <Folder Include="N2N\" />
-      <Folder Include="NUnit\DataAccess\" />
+      <Folder Include="NUnit\BusinessLogic\Services\" />
       <Folder Include="Tools\" />
     </ItemGroup>
 

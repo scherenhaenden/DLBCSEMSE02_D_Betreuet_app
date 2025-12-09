@@ -1,6 +1,9 @@
+using System;
+using System.Collections.Generic;
+
 namespace ApiProject.BusinessLogic.Models
 {
-    public class User
+    public class UserBusinessLogicModel
     {
         public Guid Id { get; set; }
         public string FirstName { get; set; }

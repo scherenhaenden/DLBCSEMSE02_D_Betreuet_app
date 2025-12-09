@@ -1,7 +1,7 @@
 using ApiProject.BusinessLogic.Services;
-using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
-using ApiProject.DatabaseAccess.context;
+using ApiProject.DatabaseAccess.Context;
+using Microsoft.OpenApi;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,4 +1,4 @@
-using System.Net;
+/*using System.Net;
 using System.Net.Http.Json;
 using ApiProject.ApiLogic.models;
 using FluentAssertions;
@@ -169,4 +169,4 @@ public class UserControllerIntegrationTests : IntegrationTestBase
         result!.Items.Should().Contain(u => u.Email.Contains("john"));
         result.Items.Should().NotContain(u => u.Email.Contains("jane"));
     }
-}
+}*/

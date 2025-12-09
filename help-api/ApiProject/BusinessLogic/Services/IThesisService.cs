@@ -1,3 +1,5 @@
+using System;
+using System.Threading.Tasks;
 using ApiProject.BusinessLogic.Models;
 
 namespace ApiProject.BusinessLogic.Services
@@ -13,14 +15,14 @@ namespace ApiProject.BusinessLogic.Services
         /// <param name="page">The page number (1-based).</param>
         /// <param name="pageSize">The number of items per page.</param>
         /// <returns>A paginated result containing the theses.</returns>
-        Task<PaginatedResult<Thesis>> GetAllAsync(int page, int pageSize);
+        Task<PaginatedResultBusinessLogicModel<ThesisBusinessLogicModel>> GetAllAsync(int page, int pageSize);
 
         /// <summary>
         /// Returns a thesis by its ID.
         /// </summary>
         /// <param name="id">The GUID of the thesis.</param>
         /// <returns>The thesis or null if not found.</returns>
-        Task<Thesis?> GetByIdAsync(Guid id);
+        Task<ThesisBusinessLogicModel?> GetByIdAsync(Guid id);
 
         /// <summary>
         /// Creates a new thesis based on the request.
@@ -28,7 +30,7 @@ namespace ApiProject.BusinessLogic.Services
         /// <param name="request">The request containing the new thesis details.</param>
         /// <returns>The created thesis.</returns>
         /// <exception cref="InvalidOperationException">Thrown if validations fail.</exception>
-        Task<Thesis> CreateThesisAsync(ThesisCreateRequest request);
+        Task<ThesisBusinessLogicModel> CreateThesisAsync(ThesisCreateRequestBusinessLogicModel request);
 
         /// <summary>
         /// Updates an existing thesis.
@@ -38,7 +40,7 @@ namespace ApiProject.BusinessLogic.Services
         /// <returns>The updated thesis.</returns>
         /// <exception cref="KeyNotFoundException">Thrown if the thesis is not found.</exception>
         /// <exception cref="InvalidOperationException">Thrown if validations fail.</exception>
-        Task<Thesis> UpdateThesisAsync(Guid id, ThesisUpdateRequest request);
+        Task<ThesisBusinessLogicModel> UpdateThesisAsync(Guid id, ThesisUpdateRequestBusinessLogicModel request);
 
         /// <summary>
         /// Deletes a thesis by its ID.

@@ -64,7 +64,7 @@ namespace ApiProject.ApiLogic.Controllers
         {
             try
             {
-                var created = await _topicService.CreateTopicAsync(new BL.TopicCreateRequest
+                var created = await _topicService.CreateTopicAsync(new BL.TopicCreateRequestBusinessLogicModel
                 {
                     Title = request.Title,
                     Description = request.Description,
@@ -84,7 +84,7 @@ namespace ApiProject.ApiLogic.Controllers
         {
             try
             {
-                var updated = await _topicService.UpdateTopicAsync(id, new BL.TopicUpdateRequest
+                var updated = await _topicService.UpdateTopicAsync(id, new BL.TopicUpdateRequestBusinessLogicModel
                 {
                     Title = request.Title,
                     Description = request.Description,
@@ -115,7 +115,7 @@ namespace ApiProject.ApiLogic.Controllers
             return NoContent();
         }
 
-        private static TopicResponse MapToResponse(BL.Topic topic)
+        private static TopicResponse MapToResponse(BL.TopicBusinessLogicModel topic)
         {
             return new TopicResponse
             {

@@ -1,4 +1,5 @@
 using ApiProject.BusinessLogic.Mappers;
+
 using ApiProject.BusinessLogic.Models;
 using ApiProject.DatabaseAccess.Context;
 using ApiProject.DatabaseAccess.Entities;
@@ -17,7 +18,7 @@ namespace ApiProject.BusinessLogic.Services
             _userService = userService;
         }
 
-        public async Task<PaginatedResult<Topic>> GetAllAsync(int page, int pageSize)
+        public async Task<PaginatedResultBusinessLogicModel<TopicBusinessLogicModel>> GetAllAsync(int page, int pageSize)
         {
             var query = _context.Topics
                 .Include(t => t.UserTopics);
@@ -28,25 +29,25 @@ namespace ApiProject.BusinessLogic.Services
                 .Take(pageSize)
                 .ToListAsync();
 
-            return new PaginatedResult<Topic>
+            return new PaginatedResultBusinessLogicModel<TopicBusinessLogicModel>
             {
-                Items = items.Select(TopicMapper.ToBusinessModel).ToList(),
+                Items = items.Select(TopicBusinessLogicMapper.ToBusinessModel).ToList(),
                 TotalCount = totalCount,
                 Page = page,
                 PageSize = pageSize
             };
         }
 
-        public async Task<Topic?> GetByIdAsync(Guid id)
+        public async Task<TopicBusinessLogicModel?> GetByIdAsync(Guid id)
         {
             var topic = await _context.Topics
                 .Include(t => t.UserTopics)
                 .SingleOrDefaultAsync(t => t.Id == id);
 
-            return TopicMapper.ToBusinessModel(topic);
+            return TopicBusinessLogicMapper.ToBusinessModel(topic);
         }
 
-        public async Task<PaginatedResult<Topic>> SearchAsync(string searchTerm, int page, int pageSize)
+        public async Task<PaginatedResultBusinessLogicModel<TopicBusinessLogicModel>> SearchAsync(string searchTerm, int page, int pageSize)
         {
             var query = _context.Topics
                 .Include(t => t.UserTopics)
@@ -58,16 +59,16 @@ namespace ApiProject.BusinessLogic.Services
                 .Take(pageSize)
                 .ToListAsync();
 
-            return new PaginatedResult<Topic>
+            return new PaginatedResultBusinessLogicModel<TopicBusinessLogicModel>
             {
-                Items = items.Select(TopicMapper.ToBusinessModel).ToList(),
+                Items = items.Select(TopicBusinessLogicMapper.ToBusinessModel).ToList(),
                 TotalCount = totalCount,
                 Page = page,
                 PageSize = pageSize
             };
         }
 
-        public async Task<Topic> CreateTopicAsync(TopicCreateRequest request)
+        public async Task<TopicBusinessLogicModel> CreateTopicAsync(TopicCreateRequestBusinessLogicModel request)
         {
             foreach (var tutorId in request.TutorIds)
             {
@@ -97,7 +98,7 @@ namespace ApiProject.BusinessLogic.Services
             return createdTopic!;
         }
 
-        public async Task<Topic> UpdateTopicAsync(Guid id, TopicUpdateRequest request)
+        public async Task<TopicBusinessLogicModel> UpdateTopicAsync(Guid id, TopicUpdateRequestBusinessLogicModel request)
         {
             var topic = await _context.Topics
                 .Include(t => t.UserTopics)

@@ -1,6 +1,8 @@
+using System;
+
 namespace ApiProject.BusinessLogic.Models
 {
-    public class ThesisCreateRequest
+    public class ThesisCreateRequestBusinessLogicModel
     {
         public string Title { get; set; }
         public string SubjectArea { get; set; }
