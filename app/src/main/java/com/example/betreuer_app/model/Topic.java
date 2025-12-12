@@ -19,14 +19,14 @@ public class Topic {
     /*
     Returns the ID.
     */
-    public int getID() {
+    public int getId() {
         return id;
     }
 
     /*
     Sets the ID.
     */
-    public void setID(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -68,21 +68,21 @@ public class Topic {
     /*
     Sets the subjectArea.
     */
-    public void setSubjectAre(String subjectArea) {
+    public void setSubjectArea(String subjectArea) {
         this.subjectArea = subjectArea;
     }
 
     /*
     Returns the isActive.
     */
-    public boolean getIsActive() {
+    public boolean isActive() {
         return isActive;
     }
 
     /*
     Sets isActive.
     */
-    public void setIsActive(boolean isActive) {
+    public void setActive(boolean isActive) {
         this.isActive = isActive;
     }
 }
