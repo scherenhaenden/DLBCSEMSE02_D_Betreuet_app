@@ -22,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Initializes the activity and sets up the content view with window insets.
      */
+    /**
+     * Initializes the activity, sets up the layout, and populates the RecyclerView with thesis data.
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
