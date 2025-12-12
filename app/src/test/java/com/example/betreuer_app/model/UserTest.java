@@ -1,29 +1,52 @@
 package com.example.betreuer_app.model;
 
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import java.util.UUID;
+
 public class UserTest {
 
+    private User user;
+    private UUID userId;
+
+    @Before
+    public void setUp() {
+        userId = UUID.randomUUID();
+        user = new User(userId, "John Doe", "john.doe@example.com", "student");
+    }
+
     @Test
-    public void testConstructor() {
-        User user = new User(1, "John", "john@example.com", "student");
-        assertEquals(1, user.getId());
-        assertEquals("John", user.getName());
-        assertEquals("john@example.com", user.getEmail());
+    public void testConstructorAndGetters() {
+        assertEquals(userId, user.getId());
+        assertEquals("John Doe", user.getName());
+        assertEquals("john.doe@example.com", user.getEmail());
         assertEquals("student", user.getRole());
     }
 
     @Test
-    public void testSetters() {
-        User user = new User(0, "", "", "");
-        user.setId(2);
-        user.setName("Jane");
-        user.setEmail("jane@example.com");
-        user.setRole("teacher");
-        assertEquals(2, user.getId());
-        assertEquals("Jane", user.getName());
-        assertEquals("jane@example.com", user.getEmail());
-        assertEquals("teacher", user.getRole());
+    public void testSetId() {
+        UUID newId = UUID.randomUUID();
+        user.setId(newId);
+        assertEquals(newId, user.getId());
+    }
+
+    @Test
+    public void testSetName() {
+        user.setName("Jane Doe");
+        assertEquals("Jane Doe", user.getName());
+    }
+
+    @Test
+    public void testSetEmail() {
+        user.setEmail("jane.doe@example.com");
+        assertEquals("jane.doe@example.com", user.getEmail());
+    }
+
+    @Test
+    public void testSetRole() {
+        user.setRole("supervisor");
+        assertEquals("supervisor", user.getRole());
     }
 }
