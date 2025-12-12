@@ -31,7 +31,6 @@ public class Topic {
 
     /**
      * Returns the ID of the topic.
-     * @return The ID.
      */
     public UUID getId() {
         return id;
