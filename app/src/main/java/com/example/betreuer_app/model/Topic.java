@@ -8,7 +8,7 @@ public class Topic {
     private String subjectArea;
     private boolean isActive;
 
-    public topic(int id, String title, String description, String subjectArea, boolean isActive) {
+    public Topic(int id, String title, String description, String subjectArea, boolean isActive) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -41,7 +41,7 @@ public class Topic {
     Sets the title
     */
     public void setTitle(String title) {
-        this.title = tile;
+        this.title = title;
     }
 
     /*
