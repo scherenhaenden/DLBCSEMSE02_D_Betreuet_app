@@ -60,7 +60,6 @@ public class Thesis {
 
     /**
      * Returns the ID of the thesis.
-     * @return The ID.
      */
     public UUID getId() {
         return id;
@@ -124,7 +123,6 @@ public class Thesis {
 
     /**
      * Returns the student's ID.
-     * @return The student ID.
      */
     public UUID getStudentId() {
         return studentId;
@@ -156,7 +154,6 @@ public class Thesis {
 
     /**
      * Returns the second examiner's ID.
-     * @return The second examiner ID.
      */
     public UUID getSecondExaminerId() {
         return secondExaminerId;
