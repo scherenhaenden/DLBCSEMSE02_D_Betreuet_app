@@ -7,7 +7,6 @@ namespace ApiProject.DatabaseAccess.Entities
     {
         public required string Title { get; set; }
         public required string Description { get; set; }
-        public required string SubjectArea { get; set; }
         public bool IsActive { get; set; } = true;
 
         public ICollection<UserTopicDataAccessModel> UserTopics { get; set; } = new List<UserTopicDataAccessModel>();

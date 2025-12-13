@@ -13,22 +13,28 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
 
         TextView welcomeTextView = findViewById(R.id.welcomeTextView);
+        TextView studentDashboardTitle = findViewById(R.id.studentDashboardTitle);
+        TextView lecturerDashboardTitle = findViewById(R.id.lecturerDashboardTitle);
         View studentView = findViewById(R.id.studentDashboardView);
         View lecturerView = findViewById(R.id.lecturerDashboardView);
 
-        // This is a placeholder logic.
-        // In a real app, you would get the user's name and role after login.
-        String userName = "Stefan"; // Placeholder
-        String userRole = "lecturer"; // Placeholder: "student" or "lecturer"
+        String userName = getIntent().getStringExtra("USER_NAME");
+        String userRole = getIntent().getStringExtra("USER_ROLE");
 
-        welcomeTextView.setText("Hallo " + userName + "!");
+        if (userName != null) {
+            welcomeTextView.setText("Hallo " + userName + "!");
+        }
 
-        if ("student".equals(userRole)) {
-            studentView.setVisibility(View.VISIBLE);
-            lecturerView.setVisibility(View.GONE);
-        } else if ("lecturer".equals(userRole)) {
-            lecturerView.setVisibility(View.VISIBLE);
-            studentView.setVisibility(View.GONE);
+        if (userRole != null) {
+            if (userRole.equalsIgnoreCase("student")) {
+                studentDashboardTitle.setText("Dein Dashboard als (Student)");
+                studentView.setVisibility(View.VISIBLE);
+                lecturerView.setVisibility(View.GONE);
+            } else if (userRole.equalsIgnoreCase("tutor")) {
+                lecturerDashboardTitle.setText("Dein Dashboard als (Dozent)");
+                lecturerView.setVisibility(View.VISIBLE);
+                studentView.setVisibility(View.GONE);
+            }
         }
     }
 }

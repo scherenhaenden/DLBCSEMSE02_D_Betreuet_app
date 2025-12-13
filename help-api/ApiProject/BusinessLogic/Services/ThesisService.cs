@@ -74,7 +74,6 @@ namespace ApiProject.BusinessLogic.Services
             var thesis = new ThesisDataAccessModel
             {
                 Title = request.Title.Trim(),
-                SubjectArea = request.SubjectArea.Trim(),
                 OwnerId = request.OwnerId,
                 TutorId = request.TutorId,
                 SecondSupervisorId = request.SecondSupervisorId,
@@ -108,7 +107,6 @@ namespace ApiProject.BusinessLogic.Services
             }
 
             if (request.Title != null) thesis.Title = request.Title.Trim();
-            if (request.SubjectArea != null) thesis.SubjectArea = request.SubjectArea.Trim();
             // TODO: fix this too
             //if (request.StatusId.HasValue) thesis.StatusId = request.StatusId.Value;
             //if (request.BillingStatusId.HasValue) thesis.BillingStatusId = request.BillingStatusId.Value;

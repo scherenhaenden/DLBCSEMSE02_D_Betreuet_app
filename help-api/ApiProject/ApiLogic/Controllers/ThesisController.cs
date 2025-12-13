@@ -48,7 +48,6 @@ namespace ApiProject.ApiLogic.Controllers
             var created = await _thesisService.CreateThesisAsync(new ThesisCreateRequestBusinessLogicModel
             {
                 Title = request.Title,
-                SubjectArea = request.SubjectArea,
                 OwnerId = request.OwnerId,
                 TutorId = request.TutorId,
                 SecondSupervisorId = request.SecondSupervisorId,

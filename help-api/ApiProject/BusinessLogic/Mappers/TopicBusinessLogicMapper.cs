@@ -17,7 +17,6 @@ public static class TopicBusinessLogicMapper
             Id = dataAccessModel.Id,
             Title = dataAccessModel.Title,
             Description = dataAccessModel.Description,
-            SubjectArea = dataAccessModel.SubjectArea,
             IsActive = dataAccessModel.IsActive,
             TutorIds = dataAccessModel.UserTopics.Select(ut => ut.UserId).ToList()
         };

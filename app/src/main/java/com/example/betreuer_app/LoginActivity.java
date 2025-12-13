@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.betreuer_app.model.LoggedInUser;
 import com.example.betreuer_app.model.LoginResponse;
 import com.example.betreuer_app.repository.LoginRepository;
 
@@ -55,8 +56,13 @@ public class LoginActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.GONE);
                     loginButton.setEnabled(true);
 
-                    if (response.isSuccessful()) {
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    if (response.isSuccessful() && response.body() != null) {
+                        LoggedInUser user = response.body().getUser();
+                        Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
+                        intent.putExtra("USER_NAME", user.getFirstName());
+                        if (user.getRoles() != null && !user.getRoles().isEmpty()) {
+                            intent.putExtra("USER_ROLE", user.getRoles().get(0));
+                        }
                         startActivity(intent);
                         finish();
                     } else {

@@ -1,0 +1,75 @@
+@startuml
+
+abstract class BaseEntity {
+  + Id: Guid
+  + CreatedAt: DateTime
+  + UpdatedAt: DateTime
+}
+
+class RoleDataAccessModel extends BaseEntity {
+  + Name: string
+}
+
+class UserDataAccessModel extends BaseEntity {
+  + FirstName: string
+  + LastName: string
+  + Email: string
+  + PasswordHash: string
+}
+
+class TopicDataAccessModel extends BaseEntity {
+  + Title: string
+  + Description: string
+  + IsActive: bool
+}
+
+class ThesisDataAccessModel extends BaseEntity {
+  + Title: string
+  + SubjectArea: string
+  + StatusId: Guid
+  + BillingStatusId: Guid
+  + OwnerId: Guid
+  + TutorId: Guid
+  + SecondSupervisorId: Guid?
+  + TopicId: Guid?
+}
+
+class UserRoleDataAccessModel {
+  + UserId: Guid
+  + RoleId: Guid
+}
+
+class UserTopicDataAccessModel {
+  + UserId: Guid
+  + TopicId: Guid
+}
+
+class ThesisStatusDataAccessModel extends BaseEntity {
+  + Name: string
+}
+
+class BillingStatusDataAccessModel extends BaseEntity {
+  + Name: string
+}
+
+class ThesisDocumentDataAccessModel extends BaseEntity {
+  + FileName: string
+  + ContentType: string
+  + Content: byte[]
+  + ThesisId: Guid
+}
+
+UserDataAccessModel "1" -- "0..*" UserRoleDataAccessModel : has
+RoleDataAccessModel "1" -- "0..*" UserRoleDataAccessModel : has
+UserDataAccessModel "1" -- "0..*" UserTopicDataAccessModel : has
+TopicDataAccessModel "1" -- "0..*" UserTopicDataAccessModel : has
+
+ThesisDataAccessModel "1" -- "1" ThesisStatusDataAccessModel : has
+ThesisDataAccessModel "1" -- "1" BillingStatusDataAccessModel : has
+ThesisDataAccessModel "1" -- "1" UserDataAccessModel : "Owner"
+ThesisDataAccessModel "1" -- "1" UserDataAccessModel : "Tutor"
+ThesisDataAccessModel "1" -- "0..1" UserDataAccessModel : "SecondSupervisor"
+ThesisDataAccessModel "1" -- "0..1" TopicDataAccessModel : has
+ThesisDataAccessModel "1" -- "0..1" ThesisDocumentDataAccessModel : has
+
+@enduml

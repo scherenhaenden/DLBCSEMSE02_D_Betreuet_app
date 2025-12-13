@@ -6,7 +6,6 @@ namespace ApiProject.DatabaseAccess.Entities
     public sealed class ThesisDataAccessModel : BaseEntity
     {
         public required string Title { get; set; }
-        public required string SubjectArea { get; set; }
 
         public Guid StatusId { get; set; }
         public ThesisStatusDataAccessModel Status { get; set; }

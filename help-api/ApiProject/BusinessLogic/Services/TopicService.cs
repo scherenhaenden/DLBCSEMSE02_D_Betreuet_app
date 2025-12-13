@@ -51,7 +51,7 @@ namespace ApiProject.BusinessLogic.Services
         {
             var query = _context.Topics
                 .Include(t => t.UserTopics)
-                .Where(t => t.Title.Contains(searchTerm) || t.SubjectArea.Contains(searchTerm));
+                .Where(t => t.Title.Contains(searchTerm) );
 
             var totalCount = await query.CountAsync();
             var items = await query
@@ -82,7 +82,6 @@ namespace ApiProject.BusinessLogic.Services
             {
                 Title = request.Title.Trim(),
                 Description = request.Description.Trim(),
-                SubjectArea = request.SubjectArea.Trim(),
                 IsActive = true
             };
 
@@ -111,7 +110,6 @@ namespace ApiProject.BusinessLogic.Services
 
             if (request.Title != null) topic.Title = request.Title.Trim();
             if (request.Description != null) topic.Description = request.Description.Trim();
-            if (request.SubjectArea != null) topic.SubjectArea = request.SubjectArea.Trim();
             if (request.IsActive.HasValue) topic.IsActive = request.IsActive.Value;
 
             if (request.TutorIds != null)

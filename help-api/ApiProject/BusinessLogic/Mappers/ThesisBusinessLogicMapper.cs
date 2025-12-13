@@ -16,7 +16,6 @@ public static class ThesisBusinessLogicMapper
         {
             Id = dataAccessModel.Id,
             Title = dataAccessModel.Title,
-            SubjectArea = dataAccessModel.SubjectArea,
             Status = dataAccessModel.Status?.Name,
             BillingStatus = dataAccessModel.BillingStatus != null ? BillingStatusBusinessLogicMapper.ToBusinessModel(dataAccessModel.BillingStatus) : null,
             OwnerId = dataAccessModel.OwnerId,
