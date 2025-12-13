@@ -18,7 +18,7 @@ public class User {
      * @param email The user's email address.
      * @param role The user's role.
      */
-    public User(UUID id, String name, String email, String role) {
+    public User(UUID id, String name, String email, Role role) {
         this.id = id;
         this.name = name;
         this.email = email;
