@@ -4,6 +4,7 @@ using Bogus;
 using System.Text.Json;
 using Bogus;
 using System.Linq.Expressions;
+using BCrypt.Net;
 
 namespace ApiProject.Tests.CreateSeed;
 
@@ -38,7 +39,7 @@ public class Seeder
             .RuleFor(u => u.FirstName, f => f.Name.FirstName())
             .RuleFor(u => u.LastName, f => f.Name.LastName())
             .RuleFor(u => u.Email, f => f.Internet.Email())
-            .RuleFor(u => u.PasswordHash, f => f.Internet.Password())
+            .RuleFor(u => u.PasswordHash, f => BCrypt.Net.BCrypt.HashPassword(f.Internet.Password()))
             .RuleFor(u => u.Id, f => Guid.NewGuid())
             .RuleFor(u => u.CreatedAt, f => f.Date.Past())
             .RuleFor(u => u.UpdatedAt, f => f.Date.Recent());
@@ -71,7 +72,7 @@ public class Seeder
                     FirstName = testerName,
                     LastName = role.Name, // Using role name as last name for easy identification
                     Email = $"{testerName.ToLower()}.{role.Name.ToLower()}@test.com",
-                    PasswordHash = "password123", // Using a fixed password for testing
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("password123"), // Using a fixed password for testing
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow
                 };
