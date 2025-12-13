@@ -19,6 +19,7 @@ import com.example.betreuer_app.model.UsersResponse;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     /**
      * Initializes the activity and sets up the content view with window insets.
+     */
+    /**
+     * Initializes the activity, sets up the layout, and populates the RecyclerView with thesis data.
      */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,9 +46,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Dummy-Daten erstellen
         List<Thesis> thesisList = new ArrayList<>();
-        thesisList.add(new Thesis(1, "Entwicklung einer mobilen App", Thesis.Status.REGISTERED, "Informatik", 1, 1, 1, "/path/expose1.pdf", Thesis.BillingStatus.ISSUED));
-        thesisList.add(new Thesis(2, "Analyse von KI-Algorithmen", Thesis.Status.IN_DISCUSSION, "Mathematik", 1, 1, 1, "/path/expose2.pdf", Thesis.BillingStatus.NONE));
-        thesisList.add(new Thesis(3, "Umweltstudie zur Nachhaltigkeit", Thesis.Status.SUBMITTED, "Umweltwissenschaften", 1, 1, 1, "/path/expose3.pdf", Thesis.BillingStatus.PAID));
+        thesisList.add(new Thesis(UUID.randomUUID(), "Entwicklung einer mobilen App", Thesis.Status.REGISTERED, "Informatik", UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), "/path/expose1.pdf", Thesis.BillingStatus.ISSUED));
+        thesisList.add(new Thesis(UUID.randomUUID(), "Analyse von KI-Algorithmen", Thesis.Status.IN_DISCUSSION, "Mathematik", UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), "/path/expose2.pdf", Thesis.BillingStatus.NONE));
+        thesisList.add(new Thesis(UUID.randomUUID(), "Umweltstudie zur Nachhaltigkeit", Thesis.Status.SUBMITTED, "Umweltwissenschaften", UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), "/path/expose3.pdf", Thesis.BillingStatus.PAID));
 
         // RecyclerView einrichten
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
