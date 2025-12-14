@@ -16,6 +16,9 @@ public class ThesisDbContext : DbContext
     public DbSet<ThesisStatusDataAccessModel> ThesisStatuses { get; set; }
     public DbSet<BillingStatusDataAccessModel> BillingStatuses { get; set; }
     public DbSet<ThesisDocumentDataAccessModel> ThesisDocuments { get; set; }
+    public DbSet<ThesisRequestDataAccessModel> ThesisRequests { get; set; }
+    public DbSet<RequestTypeDataAccessModel> RequestTypes { get; set; }
+    public DbSet<RequestStatusDataAccessModel> RequestStatuses { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -62,6 +65,24 @@ public class ThesisDbContext : DbContext
             .HasOne(t => t.Document)
             .WithOne(d => d.Thesis)
             .HasForeignKey<ThesisDocumentDataAccessModel>(d => d.ThesisId);
+            
+        modelBuilder.Entity<ThesisRequestDataAccessModel>()
+            .HasOne(tr => tr.Requester)
+            .WithMany()
+            .HasForeignKey(tr => tr.RequesterId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<ThesisRequestDataAccessModel>()
+            .HasOne(tr => tr.Receiver)
+            .WithMany()
+            .HasForeignKey(tr => tr.ReceiverId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<ThesisRequestDataAccessModel>()
+            .HasOne(tr => tr.Thesis)
+            .WithMany()
+            .HasForeignKey(tr => tr.ThesisId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         // --- Seed Data ---
         modelBuilder.Entity<RoleDataAccessModel>().HasData(
@@ -81,6 +102,17 @@ public class ThesisDbContext : DbContext
             new BillingStatusDataAccessModel { Id = Guid.NewGuid(), Name = "None", CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
             new BillingStatusDataAccessModel { Id = Guid.NewGuid(), Name = "Invoiced", CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
             new BillingStatusDataAccessModel { Id = Guid.NewGuid(), Name = "Paid", CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow }
+        );
+        
+        modelBuilder.Entity<RequestTypeDataAccessModel>().HasData(
+            new RequestTypeDataAccessModel { Id = Guid.NewGuid(), Name = "SUPERVISION", CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            new RequestTypeDataAccessModel { Id = Guid.NewGuid(), Name = "CO_SUPERVISION", CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow }
+        );
+
+        modelBuilder.Entity<RequestStatusDataAccessModel>().HasData(
+            new RequestStatusDataAccessModel { Id = Guid.NewGuid(), Name = "PENDING", CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            new RequestStatusDataAccessModel { Id = Guid.NewGuid(), Name = "ACCEPTED", CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            new RequestStatusDataAccessModel { Id = Guid.NewGuid(), Name = "REJECTED", CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow }
         );
     }
 }
