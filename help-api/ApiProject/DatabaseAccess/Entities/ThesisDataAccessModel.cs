@@ -16,8 +16,8 @@ namespace ApiProject.DatabaseAccess.Entities
         public Guid OwnerId { get; set; }
         public UserDataAccessModel Owner { get; set; }
 
-        public Guid TutorId { get; set; }
-        public UserDataAccessModel Tutor { get; set; }
+        public Guid? TutorId { get; set; }
+        public UserDataAccessModel? Tutor { get; set; }
 
         public Guid? SecondSupervisorId { get; set; }
         public UserDataAccessModel? SecondSupervisor { get; set; }

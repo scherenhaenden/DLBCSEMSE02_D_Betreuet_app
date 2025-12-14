@@ -13,7 +13,8 @@ builder.Services.ConfigureSwagger();
 builder.Services.AddControllers();
 builder.Services.ConfigureJwtAuthentication(builder.Configuration);
 builder.Services.ConfigureDatabase(builder.Configuration);
-builder.Services.ConfigureBusinessLogicServices();
+builder.Services.AddBusinessLogicServices();
+builder.Services.AddApiMappers();
 builder.Services.AddScoped<SeedService>();
 
 var app = builder.Build();
@@ -40,6 +41,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Thesis Management API v1");
+        c.InjectStylesheet("/swagger-dark.css"); // Add this line
     });
 }
 

@@ -21,92 +21,79 @@ public class UserSeed: UserDataAccessModel
 [TestFixture]
 public class Seeder
 {
-    /// <summary>
-    /// Main method to generate seed data for the application.
-    /// This method creates a comprehensive set of data including users, roles, topics, theses, and more,
-    /// and saves it to a JSON file for later use in seeding the database.
-    /// </summary>
     [Test]
     public void CreateSeed()
     {
-        // Get the directory where the executing assembly is located to save the seed.json file.
         string directory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-        
         ICreateSeedOfObject createSeedOfObject = new CreateSeedOfObject();
         
-        // --- 1. Generate Roles ---
-        // We define a fixed set of roles: STUDENT, TUTOR, and ADMIN.
+        // --- 1. Roles ---
         var roleNames = new[] { "STUDENT", "TUTOR", "ADMIN" };
         var rolesToSeed = new List<RoleDataAccessModel>();
-
         foreach (var roleName in roleNames)
         {
-            var role = new Faker<RoleDataAccessModel>()
+            rolesToSeed.Add(new Faker<RoleDataAccessModel>()
                 .RuleFor(r => r.Id, f => Guid.NewGuid())
-                .RuleFor(r => r.Name, roleName) // Set the specific role name
+                .RuleFor(r => r.Name, roleName)
                 .RuleFor(r => r.CreatedAt, f => f.Date.Recent())
                 .RuleFor(r => r.UpdatedAt, (f, r) => r.CreatedAt)
-                .Generate();
-    
-            rolesToSeed.Add(role);
+                .Generate());
         }
 
-        // --- 2. Generate Billing Statuses ---
-        // Define possible billing statuses for a thesis.
+        // --- 2. Billing Statuses ---
         var billingStatusNames = new[] { "NONE", "ISSUED", "PAID" };
         var billingStatusesToSeed = new List<BillingStatusDataAccessModel>();
-
         foreach (var statusName in billingStatusNames)
         {
-            var status = new Faker<BillingStatusDataAccessModel>()
+            billingStatusesToSeed.Add(new Faker<BillingStatusDataAccessModel>()
                 .RuleFor(b => b.Id, f => Guid.NewGuid())
                 .RuleFor(b => b.Name, statusName)
                 .RuleFor(b => b.CreatedAt, f => f.Date.Recent())
                 .RuleFor(b => b.UpdatedAt, (f, b) => b.CreatedAt)
-                .Generate();
-    
-            billingStatusesToSeed.Add(status);
+                .Generate());
         }
 
-        // --- 3. Generate Thesis Statuses ---
-        // Define the lifecycle stages of a thesis.
+        // --- 3. Thesis Statuses ---
         var thesisStatusNames = new[] { "IN_DISCUSSION", "REGISTERED", "SUBMITTED", "DEFENDED" };
         var thesisStatusesToSeed = new List<ThesisStatusDataAccessModel>();
-
         foreach (var statusName in thesisStatusNames)
         {
-            var status = new Faker<ThesisStatusDataAccessModel>()
+            thesisStatusesToSeed.Add(new Faker<ThesisStatusDataAccessModel>()
                 .RuleFor(t => t.Id, f => Guid.NewGuid())
                 .RuleFor(t => t.Name, statusName)
                 .RuleFor(t => t.CreatedAt, f => f.Date.Recent())
                 .RuleFor(t => t.UpdatedAt, (f, t) => t.CreatedAt)
-                .Generate();
-    
-            thesisStatusesToSeed.Add(status);
+                .Generate());
         }
 
-        // --- 4. Generate Topics ---
-        // Retrieve a predefined list of topics from the TopicForSeeding method.
-        // These topics cover various fields like AI, Web Development, etc.
+        // --- 4. Request Types & Statuses ---
+        var requestTypesToSeed = new List<RequestTypeDataAccessModel>
+        {
+            new() { Id = Guid.NewGuid(), Name = "SUPERVISION", CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            new() { Id = Guid.NewGuid(), Name = "CO_SUPERVISION", CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow }
+        };
+        var requestStatusesToSeed = new List<RequestStatusDataAccessModel>
+        {
+            new() { Id = Guid.NewGuid(), Name = "PENDING", CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            new() { Id = Guid.NewGuid(), Name = "ACCEPTED", CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+            new() { Id = Guid.NewGuid(), Name = "REJECTED", CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow }
+        };
+
+        // --- 5. Topics ---
         var topicsFromMethod = TopicForSeeding();
         var topicsToSeed = new List<TopicDataAccessModel>();
-
         foreach (var topicItem in topicsFromMethod)
         {
-            var topic = new Faker<TopicDataAccessModel>()
+            topicsToSeed.Add(new Faker<TopicDataAccessModel>()
                 .RuleFor(t => t.Id, f => Guid.NewGuid())
                 .RuleFor(t => t.Title, topicItem.Title)
                 .RuleFor(t => t.Description, topicItem.Description)
                 .RuleFor(t => t.CreatedAt, f => f.Date.Recent())
                 .RuleFor(t => t.UpdatedAt, (f, t) => t.CreatedAt)
-                .Generate();
-    
-            topicsToSeed.Add(topic);
+                .Generate());
         }
 
-        // --- 5. Generate Users ---
-        // Create a Faker for UserSeed to generate random user data.
-        // Passwords are hashed using BCrypt.
+        // --- 6. Users ---
         var userFaker = new Faker<UserSeed>()
             .RuleFor(u => u.FirstName, f => f.Name.FirstName())
             .RuleFor(u => u.LastName, f => f.Name.LastName())
@@ -117,28 +104,18 @@ public class Seeder
             .RuleFor(u => u.CreatedAt, f => f.Date.Past())
             .RuleFor(u => u.UpdatedAt, f => f.Date.Recent());
         
-        // Generate 100 random users.
         var users = userFaker.Generate(100);
 
-        // --- 6. Assign Roles to Users ---
-        // Randomly assign one of the created roles to each generated user.
+        // --- 7. Assign Roles ---
         var userRolesToSeed = new List<UserRoleDataAccessModel>();
         var faker = new Faker();
-
         foreach (var user in users)
         {
             var randomRole = faker.PickRandom(rolesToSeed);
-            var userRole = new UserRoleDataAccessModel
-            {
-                UserId = user.Id,
-                RoleId = randomRole.Id
-            };
-            userRolesToSeed.Add(userRole);
+            userRolesToSeed.Add(new UserRoleDataAccessModel { UserId = user.Id, RoleId = randomRole.Id });
         }
         
-        // --- 7. Create Specific Test Users ---
-        // Create specific users (Abraham, Eddie, Stefan, Michael) with known credentials for manual testing.
-        // Each tester gets created for every role (Student, Tutor, Admin).
+        // Specific Testers
         var testers = new[] { "Abraham", "Eddie", "Stefan", "Michael" };
         foreach (var testerName in testers)
         {
@@ -149,196 +126,199 @@ public class Seeder
                 {
                     Id = Guid.NewGuid(),
                     FirstName = testerName,
-                    LastName = role.Name, // Using role name as last name for easy identification (e.g., Abraham Tutor)
+                    LastName = role.Name,
                     Email = $"{testerName.ToLower()}.{role.Name.ToLower()}@test.com",
                     Password = password,
-                    PasswordHash = BCrypt.Net.BCrypt.HashPassword(password, workFactor:4), // Fixed password for testing
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword(password, workFactor:4),
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow
                 };
                 users.Add(specificUser);
-
-                var specificUserRole = new UserRoleDataAccessModel
-                {
-                    UserId = specificUser.Id,
-                    RoleId = role.Id
-                };
-                userRolesToSeed.Add(specificUserRole);
+                userRolesToSeed.Add(new UserRoleDataAccessModel { UserId = specificUser.Id, RoleId = role.Id });
             }
         }
         
-        // --- 8. Identify Tutors ---
-        // Filter the list of users to find all those who have been assigned the "TUTOR" role.
+        // --- 8. Tutors & Topics Assignment ---
         var tutorRole = rolesToSeed.First(r => r.Name == "TUTOR");
         var tutorUserIds = userRolesToSeed.Where(ur => ur.RoleId == tutorRole.Id).Select(ur => ur.UserId);
+        
         var tutors = users.Where(u => tutorUserIds.Contains(u.Id)).ToList();
         
-        // --- 9. Assign Topics to Tutors ---
-        // This section handles the N:M relationship between Tutors and Topics.
         var userTopicAssignments = new HashSet<(Guid UserId, Guid TopicId)>();
 
-        // Step 9a: Assign a random number of topics (2 to 7) to each tutor.
+        // Assign 2-7 topics to each tutor
         foreach (var tutor in tutors)
         {
             var numTopics = faker.Random.Int(2, 7);
             var topicsToAssign = faker.PickRandom(topicsToSeed, numTopics);
-            
-            foreach (var topic in topicsToAssign)
-            {
-                userTopicAssignments.Add((tutor.Id, topic.Id));
-            }
+            foreach (var topic in topicsToAssign) userTopicAssignments.Add((tutor.Id, topic.Id));
         }
 
-        // Step 9b: Ensure coverage - every topic must be covered by at least 4 tutors.
-        // If a topic has fewer than 4 tutors, we assign additional tutors to it.
+        // Ensure coverage (min 4 tutors per topic)
         foreach (var topic in topicsToSeed)
         {
             var assignmentsForTopic = userTopicAssignments.Count(ut => ut.TopicId == topic.Id);
             var needed = 4 - assignmentsForTopic;
-
             if (needed > 0)
             {
-                // Find tutors who are NOT yet assigned to this topic.
-                var assignedTutorIds = userTopicAssignments
-                    .Where(ut => ut.TopicId == topic.Id)
-                    .Select(ut => ut.UserId);
-                    
+                var assignedTutorIds = userTopicAssignments.Where(ut => ut.TopicId == topic.Id).Select(ut => ut.UserId);
                 var assignableTutors = tutors.Where(t => !assignedTutorIds.Contains(t.Id)).ToList();
-                
-                // Pick the needed number of tutors from the available pool.
                 var tutorsToAssign = faker.PickRandom(assignableTutors, Math.Min(needed, assignableTutors.Count));
-
-                foreach (var tutor in tutorsToAssign)
-                {
-                    userTopicAssignments.Add((tutor.Id, topic.Id));
-                }
+                foreach (var tutor in tutorsToAssign) userTopicAssignments.Add((tutor.Id, topic.Id));
             }
         }
 
-        // Convert the assignments to the UserTopicDataAccessModel entity.
         var userTopicsToSeed = userTopicAssignments
             .Select(ut => new UserTopicDataAccessModel { UserId = ut.UserId, TopicId = ut.TopicId })
             .ToList();
         
-        
-        // --- 10. Generate Theses ---
-        // Identify users with the "STUDENT" role to assign as thesis owners.
+        // --- 9. Theses & Requests Generation ---
         var studentRole = rolesToSeed.First(r => r.Name == "STUDENT");
         var studentUserIds = userRolesToSeed.Where(ur => ur.RoleId == studentRole.Id).Select(ur => ur.UserId);
         var students = users.Where(u => studentUserIds.Contains(u.Id)).ToList();
         
         var thesesToSeed = new List<ThesisDataAccessModel>();
+        var thesisRequestsToSeed = new List<ThesisRequestDataAccessModel>();
+        var thesisDocumentsToSeed = new List<ThesisDocumentDataAccessModel>();
+
         var thesisFaker = new Faker<ThesisDataAccessModel>()
             .RuleFor(t => t.Id, f => Guid.NewGuid())
             .RuleFor(t => t.Title, f => f.Lorem.Sentence(3))
-            // SubjectArea was removed from the model
-            .RuleFor(t => t.StatusId, f => f.PickRandom(thesisStatusesToSeed).Id)
             .RuleFor(t => t.BillingStatusId, f => f.PickRandom(billingStatusesToSeed).Id)
-            .RuleFor(t => t.OwnerId, f => f.PickRandom(students).Id)
             .RuleFor(t => t.CreatedAt, f => f.Date.Past())
             .RuleFor(t => t.UpdatedAt, f => f.Date.Recent());
-        
-        // Generate 40 theses with specific logic for tutor assignment.
-        for (int i = 0; i < 40; i++)
-        {
-            var thesis = thesisFaker.Generate();
-            
-            // Step 10a: Pick a random topic for the thesis.
-            var topic = faker.PickRandom(topicsToSeed);
-            thesis.TopicId = topic.Id;
-            
-            // Step 10b: Find tutors who are actually assigned to cover this specific topic.
-            // This ensures that the tutor has the expertise for the thesis topic.
-            var eligibleTutorIds = userTopicAssignments
-                .Where(ut => ut.TopicId == topic.Id)
-                .Select(ut => ut.UserId)
-                .ToList();
-            
-            // Step 10c: Randomly select one of the eligible tutors as the main supervisor.
-            var tutorId = faker.PickRandom(eligibleTutorIds);
-            thesis.TutorId = tutorId;
-            
-            // Step 10d: Pick a second supervisor. This can be any tutor except the main supervisor.
-            var otherTutors = tutors.Where(t => t.Id != tutorId).ToList();
-            thesis.SecondSupervisorId = faker.PickRandom(otherTutors).Id;
-            
-            thesesToSeed.Add(thesis);
-        }
 
-        // --- 11. Generate Thesis Documents ---
-        // Create dummy PDF documents associated with the generated theses.
-        var thesisDocumentsToSeed = new List<ThesisDocumentDataAccessModel>();
-        var thesisDocumentFaker = new Faker<ThesisDocumentDataAccessModel>()
-            .RuleFor(td => td.Id, f => Guid.NewGuid())
-            .RuleFor(td => td.FileName, f => f.System.FileName("pdf"))
-            .RuleFor(td => td.ContentType, "application/pdf")
-            .RuleFor(td => td.Content, f => Encoding.UTF8.GetBytes("This is a thesis.")) // Dummy content
-            .RuleFor(td => td.ThesisId, f => f.PickRandom(thesesToSeed).Id)
-            .RuleFor(td => td.CreatedAt, f => f.Date.Past())
-            .RuleFor(td => td.UpdatedAt, f => f.Date.Recent());
-        
-        thesisDocumentsToSeed.AddRange(thesisDocumentFaker.Generate(40));
-        
-        // --- 12. Generate Thesis Requests ---
-        var requestTypesToSeed = new List<RequestTypeDataAccessModel>
-        {
-            new() { Id = Guid.NewGuid(), Name = "SUPERVISION" },
-            new() { Id = Guid.NewGuid(), Name = "CO_SUPERVISION" }
-        };
-        var requestStatusesToSeed = new List<RequestStatusDataAccessModel>
-        {
-            new() { Id = Guid.NewGuid(), Name = "PENDING" },
-            new() { Id = Guid.NewGuid(), Name = "ACCEPTED" },
-            new() { Id = Guid.NewGuid(), Name = "REJECTED" }
-        };
-        
-        var thesisRequestsToSeed = new List<ThesisRequestDataAccessModel>();
         var thesisRequestFaker = new Faker<ThesisRequestDataAccessModel>()
             .RuleFor(tr => tr.Id, f => Guid.NewGuid())
             .RuleFor(tr => tr.Message, f => f.Lorem.Sentence())
             .RuleFor(tr => tr.CreatedAt, f => f.Date.Past())
             .RuleFor(tr => tr.UpdatedAt, f => f.Date.Recent());
 
-        foreach (var thesis in thesesToSeed)
-        {
-            // Create a supervision request from student to tutor
-            var supervisionRequest = thesisRequestFaker.Generate();
-            supervisionRequest.RequesterId = thesis.OwnerId;
-            supervisionRequest.ReceiverId = thesis.TutorId;
-            supervisionRequest.ThesisId = thesis.Id;
-            supervisionRequest.RequestTypeId = requestTypesToSeed.First(rt => rt.Name == "SUPERVISION").Id;
-            supervisionRequest.StatusId = requestStatusesToSeed.First(rs => rs.Name == "ACCEPTED").Id; // Assume accepted for simplicity
-            thesisRequestsToSeed.Add(supervisionRequest);
+        var thesisDocumentFaker = new Faker<ThesisDocumentDataAccessModel>()
+            .RuleFor(td => td.Id, f => Guid.NewGuid())
+            .RuleFor(td => td.FileName, f => f.System.FileName("pdf"))
+            .RuleFor(td => td.ContentType, "application/pdf")
+            .RuleFor(td => td.Content, f => Encoding.UTF8.GetBytes("This is a thesis."))
+            .RuleFor(td => td.CreatedAt, f => f.Date.Past())
+            .RuleFor(td => td.UpdatedAt, f => f.Date.Recent());
 
-            // Create a co-supervision request from tutor to second supervisor
+        List<UserSeed> GetTutorsForTopic(Guid topicId)
+        {
+            var eligibleIds = userTopicAssignments.Where(ut => ut.TopicId == topicId).Select(ut => ut.UserId);
+            return tutors.Where(t => eligibleIds.Contains(t.Id)).ToList();
+        }
+
+        // --- Scenario A: Established Theses (Accepted Requests) ---
+        for (int i = 0; i < 40; i++)
+        {
+            var thesis = thesisFaker.Generate();
+            thesis.OwnerId = faker.PickRandom(students).Id;
+            thesis.StatusId = faker.PickRandom(thesisStatusesToSeed.Where(s => s.Name != "IN_DISCUSSION")).Id;
+            
+            var topic = faker.PickRandom(topicsToSeed);
+            thesis.TopicId = topic.Id;
+
+            var eligibleTutors = GetTutorsForTopic(topic.Id);
+            var tutor = faker.PickRandom(eligibleTutors);
+            thesis.TutorId = tutor.Id;
+
+            if (faker.Random.Bool(0.3f))
+            {
+                var otherTutors = eligibleTutors.Where(t => t.Id != tutor.Id).ToList();
+                if(otherTutors.Any())
+                    thesis.SecondSupervisorId = faker.PickRandom(otherTutors).Id;
+            }
+
+            thesesToSeed.Add(thesis);
+
+            var doc = thesisDocumentFaker.Generate();
+            doc.ThesisId = thesis.Id;
+            thesisDocumentsToSeed.Add(doc);
+
+            var req = thesisRequestFaker.Generate();
+            req.RequesterId = thesis.OwnerId;
+            req.ReceiverId = thesis.TutorId.Value;
+            req.ThesisId = thesis.Id;
+            req.RequestTypeId = requestTypesToSeed.First(rt => rt.Name == "SUPERVISION").Id;
+            req.StatusId = requestStatusesToSeed.First(rs => rs.Name == "ACCEPTED").Id;
+            thesisRequestsToSeed.Add(req);
+
             if (thesis.SecondSupervisorId.HasValue)
             {
-                var coSupervisionRequest = thesisRequestFaker.Generate();
-                coSupervisionRequest.RequesterId = thesis.TutorId;
-                coSupervisionRequest.ReceiverId = thesis.SecondSupervisorId.Value;
-                coSupervisionRequest.ThesisId = thesis.Id;
-                coSupervisionRequest.RequestTypeId = requestTypesToSeed.First(rt => rt.Name == "CO_SUPERVISION").Id;
-                coSupervisionRequest.StatusId = requestStatusesToSeed.First(rs => rs.Name == "ACCEPTED").Id; // Assume accepted for simplicity
-                thesisRequestsToSeed.Add(coSupervisionRequest);
+                var coReq = thesisRequestFaker.Generate();
+                coReq.RequesterId = thesis.TutorId.Value;
+                coReq.ReceiverId = thesis.SecondSupervisorId.Value;
+                coReq.ThesisId = thesis.Id;
+                coReq.RequestTypeId = requestTypesToSeed.First(rt => rt.Name == "CO_SUPERVISION").Id;
+                coReq.StatusId = requestStatusesToSeed.First(rs => rs.Name == "ACCEPTED").Id;
+                thesisRequestsToSeed.Add(coReq);
             }
         }
-        
-        // --- 13. Serialize and Save ---
-        // Combine all generated data into a single object.
-        var seedData = new { Users = users, Roles = rolesToSeed, UserRoles = userRolesToSeed, BillingStatuses = billingStatusesToSeed, ThesisStatuses = thesisStatusesToSeed, Topics = topicsToSeed, UserTopics = userTopicsToSeed, Theses = thesesToSeed, ThesisDocuments = thesisDocumentsToSeed, ThesisRequests = thesisRequestsToSeed, RequestTypes = requestTypesToSeed, RequestStatuses = requestStatusesToSeed };
-        
-        // Serialize the data to JSON with indentation for readability.
-        var json = JsonSerializer.Serialize(seedData, new JsonSerializerOptions { WriteIndented = true });
-        
-        // Write the JSON to a file named "seed.json" in the execution directory.
-        File.WriteAllText(Path.Combine(directory, "seed.json"), json);
 
+        // --- Scenario B: Pending Negotiations (New Theses) ---
+        for (int i = 0; i < 10; i++)
+        {
+            var thesis = thesisFaker.Generate();
+            thesis.OwnerId = faker.PickRandom(students).Id;
+            thesis.StatusId = thesisStatusesToSeed.First(s => s.Name == "IN_DISCUSSION").Id;
+            thesis.TutorId = null; // CORRECTED: TutorId is null until request is accepted
+            
+            var topic = faker.PickRandom(topicsToSeed);
+            thesis.TopicId = topic.Id;
+
+            var eligibleTutors = GetTutorsForTopic(topic.Id);
+            var proposedTutor = faker.PickRandom(eligibleTutors);
+
+            thesesToSeed.Add(thesis);
+
+            var req = thesisRequestFaker.Generate();
+            req.RequesterId = thesis.OwnerId;
+            req.ReceiverId = proposedTutor.Id;
+            req.ThesisId = thesis.Id;
+            req.RequestTypeId = requestTypesToSeed.First(rt => rt.Name == "SUPERVISION").Id;
+            req.StatusId = requestStatusesToSeed.First(rs => rs.Name == "PENDING").Id;
+            req.Message = "Dear Professor, I would like to write my thesis about " + topic.Title;
+            thesisRequestsToSeed.Add(req);
+
+            if (i < 5)
+            {
+                var otherEligibleTutors = eligibleTutors.Where(t => t.Id != proposedTutor.Id).ToList();
+                if (otherEligibleTutors.Any())
+                {
+                    var rejectedTutor = faker.PickRandom(otherEligibleTutors);
+                    var rejectedReq = thesisRequestFaker.Generate();
+                    rejectedReq.RequesterId = thesis.OwnerId;
+                    rejectedReq.ReceiverId = rejectedTutor.Id;
+                    rejectedReq.ThesisId = thesis.Id;
+                    rejectedReq.RequestTypeId = requestTypesToSeed.First(rt => rt.Name == "SUPERVISION").Id;
+                    rejectedReq.StatusId = requestStatusesToSeed.First(rs => rs.Name == "REJECTED").Id;
+                    rejectedReq.Message = "I am interested in your topic.";
+                    rejectedReq.CreatedAt = DateTime.Now.AddMonths(-1);
+                    thesisRequestsToSeed.Add(rejectedReq);
+                }
+            }
+        }
+
+        // --- 13. Serialize and Save ---
+        var seedData = new { 
+            Users = users, 
+            Roles = rolesToSeed, 
+            UserRoles = userRolesToSeed, 
+            BillingStatuses = billingStatusesToSeed, 
+            ThesisStatuses = thesisStatusesToSeed, 
+            Topics = topicsToSeed, 
+            UserTopics = userTopicsToSeed, 
+            Theses = thesesToSeed, 
+            ThesisDocuments = thesisDocumentsToSeed, 
+            ThesisRequests = thesisRequestsToSeed, 
+            RequestTypes = requestTypesToSeed, 
+            RequestStatuses = requestStatusesToSeed 
+        };
+        
+        var json = JsonSerializer.Serialize(seedData, new JsonSerializerOptions { WriteIndented = true });
+        File.WriteAllText(Path.Combine(directory, "seed.json"), json);
     }
 
-    /// <summary>
-    /// Helper method to provide a list of predefined topics for seeding.
-    /// </summary>
-    /// <returns>A list of TopicDataAccessModel objects.</returns>
     public List<TopicDataAccessModel> TopicForSeeding()
     {
                 var topicsToSeed = new List<TopicDataAccessModel>
