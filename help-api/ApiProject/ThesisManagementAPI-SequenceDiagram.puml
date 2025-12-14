@@ -1,0 +1,27 @@
+@startuml ThesisManagementAPI-SequenceDiagram
+
+title Thesis Management API - Get Tutors by Topic Sequence Diagram
+
+actor "External App" as App
+participant "TutorController" as Controller
+participant "IUserBusinessLogicService" as Service
+participant "Database" as DB
+
+App -> Controller: GET /api/tutors?topicName=Design
+activate Controller
+
+Controller -> Service: GetTutorsAsync(topicName="Design", page=1, pageSize=10)
+activate Service
+
+Service -> DB: Query Users table
+activate DB
+DB --> Service: Return users with role "TUTOR" and topics matching "Design"
+deactivate DB
+
+Service --> Controller: PaginatedResponse<TutorProfileResponse>
+deactivate Service
+
+Controller --> App: 200 OK (JSON response)
+deactivate Controller
+
+@enduml

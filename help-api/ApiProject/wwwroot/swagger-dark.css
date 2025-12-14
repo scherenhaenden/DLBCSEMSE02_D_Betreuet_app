@@ -1,0 +1,104 @@
+/* Dark Theme for Swagger UI */
+body {
+    background-color: #1b1b1b;
+    color: #e0e0e0;
+}
+
+.swagger-ui .topbar {
+    background-color: #000000;
+}
+
+.swagger-ui .info .title,
+.swagger-ui .info .description,
+.swagger-ui .info .version,
+.swagger-ui .scheme-container,
+.swagger-ui .opblock .opblock-summary-operation-id,
+.swagger-ui .opblock .opblock-summary-path,
+.swagger-ui .opblock .opblock-summary-path__deprecated,
+.swagger-ui .opblock-description-wrapper p,
+.swagger-ui .opblock-external-docs-wrapper p,
+.swagger-ui .opblock-title_normal p,
+.swagger-ui table thead tr th,
+.swagger-ui table thead tr td,
+.swagger-ui .response-col_status,
+.swagger-ui .response-col_links,
+.swagger-ui .parameter__name,
+.swagger-ui .parameter__type,
+.swagger-ui .parameter__deprecated,
+.swagger-ui .parameter__in,
+.swagger-ui .tab li {
+    color: #e0e0e0 !important;
+}
+
+.swagger-ui .opblock-tag {
+    color: #ffffff;
+    border-bottom: 1px solid #333;
+}
+
+.swagger-ui .opblock .opblock-section-header {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+}
+
+.swagger-ui .opblock-body pre.microlight {
+    background-color: #000 !important;
+    color: #e0e0e0 !important;
+}
+
+.swagger-ui input[type=text],
+.swagger-ui input[type=password],
+.swagger-ui input[type=search],
+.swagger-ui textarea,
+.swagger-ui select {
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+}
+
+.swagger-ui .model-box {
+    background-color: #222;
+}
+
+.swagger-ui section.models {
+    border: 1px solid #333;
+}
+
+.swagger-ui section.models h4 {
+    color: #e0e0e0;
+}
+
+.swagger-ui .model {
+    color: #e0e0e0;
+}
+
+.swagger-ui .prop-type {
+    color: #a5d6a7;
+}
+
+.swagger-ui .prop-format {
+    color: #90caf9;
+}
+
+.swagger-ui .btn {
+    color: #fff;
+    border-color: #555;
+    background-color: #333;
+}
+
+.swagger-ui .btn:hover {
+    background-color: #444;
+}
+
+.swagger-ui .dialog-ux .modal-ux {
+    background-color: #222;
+    border: 1px solid #444;
+    color: #e0e0e0;
+}
+
+.swagger-ui .dialog-ux .modal-ux-header h3 {
+    color: #e0e0e0;
+}
+
+.swagger-ui .dialog-ux .modal-ux-content h4 {
+    color: #e0e0e0;
+}

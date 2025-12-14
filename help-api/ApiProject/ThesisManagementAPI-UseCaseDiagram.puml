@@ -1,0 +1,42 @@
+@startuml ThesisManagementAPI-UseCaseDiagram
+
+title Thesis Management API - Use Case Diagram
+
+left to right direction
+
+actor Student
+actor Tutor
+actor Admin
+actor "External Application" as App
+
+rectangle "Thesis Management System" {
+    usecase "Login" as UC_LOGIN
+    usecase "Search for Tutors by Topic" as UC_SEARCH_TUTORS
+    usecase "View Tutor Profile" as UC_VIEW_TUTOR
+    
+    usecase "View Own Theses" as UC_VIEW_OWN_THESES
+    usecase "Create Thesis" as UC_CREATE_THESIS
+    
+    usecase "View Assigned Theses" as UC_VIEW_ASSIGNED_THESES
+    usecase "Update Thesis" as UC_UPDATE_THESIS
+    
+    usecase "Manage All Users" as UC_MANAGE_USERS
+    usecase "Manage All Topics" as UC_MANAGE_TOPICS
+    usecase "Manage All Theses" as UC_MANAGE_THESES
+}
+
+App --> UC_LOGIN
+App --> UC_SEARCH_TUTORS
+App --> UC_VIEW_TUTOR
+
+Student -> UC_VIEW_OWN_THESES
+Student -> UC_CREATE_THESIS
+
+Tutor -> UC_VIEW_ASSIGNED_THESES
+Tutor -> UC_UPDATE_THESIS
+
+Admin -> UC_MANAGE_USERS
+Admin -> UC_MANAGE_TOPICS
+Admin -> UC_MANAGE_THESES
+
+@enduml

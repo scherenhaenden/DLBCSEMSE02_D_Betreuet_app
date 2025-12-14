@@ -1,0 +1,197 @@
+<mxfile host="app.diagrams.net" modified="2024-05-21T13:00:00.000Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36" etag="3" version="21.1.7" type="device">
+  <diagram id="C4_Uj4a-t4a_l4a-t4a" name="API Documentation">
+    <mxGraphModel dx="1434" dy="788" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="2200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Title -->
+        <mxCell id="title" value="Thesis Management API Documentation" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="350" y="20" width="400" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Auth Controller -->
+        <mxCell id="auth_container" value="Auth Controller" style="swimlane;whiteSpace=wrap;html=1;startSize=30;fillColor=#f5f5f5;fontStyle=1;fontSize=14;" parent="1" vertex="1">
+          <mxGeometry x="40" y="80" width="1020" height="140" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="auth_login" value="POST /auth/login" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;align=left;spacingLeft=10;" parent="auth_container" vertex="1">
+          <mxGeometry x="20" y="50" width="200" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="auth_login_desc" value="Authenticates a user and returns a JWT token." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="auth_container" vertex="1">
+          <mxGeometry x="240" y="50" width="300" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="auth_login_req" value="Request: { email, password }" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Courier New;" parent="auth_container" vertex="1">
+          <mxGeometry x="240" y="70" width="300" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="auth_login_res" value="Response: { token, user: { ... } }" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Courier New;" parent="auth_container" vertex="1">
+          <mxGeometry x="240" y="90" width="300" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- User Controller -->
+        <mxCell id="user_container" value="User Controller" style="swimlane;whiteSpace=wrap;html=1;startSize=30;fillColor=#f5f5f5;fontStyle=1;fontSize=14;" parent="1" vertex="1">
+          <mxGeometry x="40" y="250" width="1020" height="220" as="geometry" />
+        </mxCell>
+
+        <mxCell id="user_get_all" value="GET /users" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;align=left;spacingLeft=10;" parent="user_container" vertex="1">
+          <mxGeometry x="20" y="50" width="200" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="user_get_all_desc" value="Retrieves a paginated list of users with optional filtering." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="user_container" vertex="1">
+          <mxGeometry x="240" y="50" width="400" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="user_get_all_params" value="Query: page, pageSize, email, firstName, lastName, role" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Courier New;" parent="user_container" vertex="1">
+          <mxGeometry x="240" y="70" width="400" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="user_create" value="POST /users" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;align=left;spacingLeft=10;" parent="user_container" vertex="1">
+          <mxGeometry x="20" y="130" width="200" height="60" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="user_create_desc" value="Creates a new user." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="user_container" vertex="1">
+          <mxGeometry x="240" y="130" width="400" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="user_create_req" value="Request: { firstName, lastName, email, password, roles }" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Courier New;" parent="user_container" vertex="1">
+          <mxGeometry x="240" y="150" width="400" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Topic Controller -->
+        <mxCell id="topic_container" value="Topic Controller" style="swimlane;whiteSpace=wrap;html=1;startSize=30;fillColor=#f5f5f5;fontStyle=1;fontSize=14;" parent="1" vertex="1">
+          <mxGeometry x="40" y="500" width="1020" height="460" as="geometry" />
+        </mxCell>
+
+        <mxCell id="topic_get_all" value="GET /topics" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;align=left;spacingLeft=10;" parent="topic_container" vertex="1">
+          <mxGeometry x="20" y="50" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="topic_get_all_desc" value="Retrieves all topics (paginated)." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="topic_container" vertex="1">
+          <mxGeometry x="240" y="50" width="400" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="topic_search" value="GET /topics/search" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;align=left;spacingLeft=10;" parent="topic_container" vertex="1">
+          <mxGeometry x="20" y="130" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="topic_search_desc" value="Searches topics by query string." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="topic_container" vertex="1">
+          <mxGeometry x="240" y="130" width="400" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="topic_search_params" value="Query: q (search term), page, pageSize" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Courier New;" parent="topic_container" vertex="1">
+          <mxGeometry x="240" y="150" width="400" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="topic_get_id" value="GET /topics/{id}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;align=left;spacingLeft=10;" parent="topic_container" vertex="1">
+          <mxGeometry x="20" y="210" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="topic_get_id_desc" value="Retrieves a specific topic by ID." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="topic_container" vertex="1">
+          <mxGeometry x="240" y="210" width="400" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="topic_create" value="POST /topics" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;align=left;spacingLeft=10;" parent="topic_container" vertex="1">
+          <mxGeometry x="20" y="290" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="topic_create_req" value="Request: { title, description, subjectArea, tutorIds }" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Courier New;" parent="topic_container" vertex="1">
+          <mxGeometry x="240" y="310" width="400" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="topic_update" value="PUT /topics/{id}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;align=left;spacingLeft=10;" parent="topic_container" vertex="1">
+          <mxGeometry x="20" y="370" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="topic_update_req" value="Request: { title, description, subjectArea, isActive, tutorIds }" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Courier New;" parent="topic_container" vertex="1">
+          <mxGeometry x="240" y="390" width="400" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Tutor Controller -->
+        <mxCell id="tutor_container" value="Tutor Controller" style="swimlane;whiteSpace=wrap;html=1;startSize=30;fillColor=#f5f5f5;fontStyle=1;fontSize=14;" parent="1" vertex="1">
+          <mxGeometry x="40" y="990" width="1020" height="220" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tutor_get_all" value="GET /tutors" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;align=left;spacingLeft=10;" parent="tutor_container" vertex="1">
+          <mxGeometry x="20" y="50" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tutor_get_all_desc" value="Retrieves tutors filtered by topic." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="tutor_container" vertex="1">
+          <mxGeometry x="240" y="50" width="400" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="tutor_get_all_params" value="Query: topicId, topicName, page, pageSize" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Courier New;" parent="tutor_container" vertex="1">
+          <mxGeometry x="240" y="70" width="400" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tutor_get_id" value="GET /tutors/{id}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;align=left;spacingLeft=10;" parent="tutor_container" vertex="1">
+          <mxGeometry x="20" y="130" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="tutor_get_id_desc" value="Retrieves detailed profile of a tutor." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="tutor_container" vertex="1">
+          <mxGeometry x="240" y="130" width="400" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Thesis Controller -->
+        <mxCell id="thesis_container" value="Thesis Controller" style="swimlane;whiteSpace=wrap;html=1;startSize=30;fillColor=#f5f5f5;fontStyle=1;fontSize=14;" parent="1" vertex="1">
+          <mxGeometry x="40" y="1240" width="1020" height="380" as="geometry" />
+        </mxCell>
+
+        <mxCell id="thesis_get_all" value="GET /theses" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;align=left;spacingLeft=10;" parent="thesis_container" vertex="1">
+          <mxGeometry x="20" y="50" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="thesis_get_all_desc" value="Retrieves theses visible to the current user (Owner/Tutor/Admin)." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="thesis_container" vertex="1">
+          <mxGeometry x="240" y="50" width="400" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="thesis_get_id" value="GET /theses/{id}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;align=left;spacingLeft=10;" parent="thesis_container" vertex="1">
+          <mxGeometry x="20" y="130" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="thesis_create" value="POST /theses" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;align=left;spacingLeft=10;" parent="thesis_container" vertex="1">
+          <mxGeometry x="20" y="210" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="thesis_create_req" value="Request: { title, topicId } (OwnerId from token, TutorId assigned via Request)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Courier New;" parent="thesis_container" vertex="1">
+          <mxGeometry x="240" y="230" width="500" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="thesis_update" value="PUT /theses/{id}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;align=left;spacingLeft=10;" parent="thesis_container" vertex="1">
+          <mxGeometry x="20" y="290" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="thesis_update_req" value="Request: { title, topicId } (Tutor assignment via Request only)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Courier New;" parent="thesis_container" vertex="1">
+          <mxGeometry x="240" y="310" width="500" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Thesis Request Controller -->
+        <mxCell id="request_container" value="Thesis Request Controller" style="swimlane;whiteSpace=wrap;html=1;startSize=30;fillColor=#f5f5f5;fontStyle=1;fontSize=14;" parent="1" vertex="1">
+          <mxGeometry x="40" y="1650" width="1020" height="380" as="geometry" />
+        </mxCell>
+
+        <mxCell id="request_create" value="POST /thesis-requests" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;align=left;spacingLeft=10;" parent="request_container" vertex="1">
+          <mxGeometry x="20" y="50" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="request_create_desc" value="Creates a new supervision or co-supervision request." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="request_container" vertex="1">
+          <mxGeometry x="240" y="50" width="400" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="request_create_req" value="Request: { thesisId, receiverId, requestType, message }" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Courier New;" parent="request_container" vertex="1">
+          <mxGeometry x="240" y="70" width="500" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="request_get_my" value="GET /thesis-requests" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;align=left;spacingLeft=10;" parent="request_container" vertex="1">
+          <mxGeometry x="20" y="130" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="request_get_my_desc" value="Retrieves requests where the user is requester or receiver." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="request_container" vertex="1">
+          <mxGeometry x="240" y="130" width="400" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="request_get_id" value="GET /thesis-requests/{id}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;align=left;spacingLeft=10;" parent="request_container" vertex="1">
+          <mxGeometry x="20" y="210" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="request_respond" value="POST /thesis-requests/{id}/respond" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;align=left;spacingLeft=10;" parent="request_container" vertex="1">
+          <mxGeometry x="20" y="290" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="request_respond_desc" value="Accepts or rejects a request. Updates Thesis on acceptance." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="request_container" vertex="1">
+          <mxGeometry x="240" y="290" width="400" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="request_respond_req" value="Request: { accepted, message }" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Courier New;" parent="request_container" vertex="1">
+          <mxGeometry x="240" y="310" width="500" height="20" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
