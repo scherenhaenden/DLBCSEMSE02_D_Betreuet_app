@@ -279,10 +279,53 @@ public class Seeder
         
         thesisDocumentsToSeed.AddRange(thesisDocumentFaker.Generate(40));
         
+        // --- 12. Generate Thesis Requests ---
+        var requestTypesToSeed = new List<RequestTypeDataAccessModel>
+        {
+            new() { Id = Guid.NewGuid(), Name = "SUPERVISION" },
+            new() { Id = Guid.NewGuid(), Name = "CO_SUPERVISION" }
+        };
+        var requestStatusesToSeed = new List<RequestStatusDataAccessModel>
+        {
+            new() { Id = Guid.NewGuid(), Name = "PENDING" },
+            new() { Id = Guid.NewGuid(), Name = "ACCEPTED" },
+            new() { Id = Guid.NewGuid(), Name = "REJECTED" }
+        };
         
-        // --- 12. Serialize and Save ---
+        var thesisRequestsToSeed = new List<ThesisRequestDataAccessModel>();
+        var thesisRequestFaker = new Faker<ThesisRequestDataAccessModel>()
+            .RuleFor(tr => tr.Id, f => Guid.NewGuid())
+            .RuleFor(tr => tr.Message, f => f.Lorem.Sentence())
+            .RuleFor(tr => tr.CreatedAt, f => f.Date.Past())
+            .RuleFor(tr => tr.UpdatedAt, f => f.Date.Recent());
+
+        foreach (var thesis in thesesToSeed)
+        {
+            // Create a supervision request from student to tutor
+            var supervisionRequest = thesisRequestFaker.Generate();
+            supervisionRequest.RequesterId = thesis.OwnerId;
+            supervisionRequest.ReceiverId = thesis.TutorId;
+            supervisionRequest.ThesisId = thesis.Id;
+            supervisionRequest.RequestTypeId = requestTypesToSeed.First(rt => rt.Name == "SUPERVISION").Id;
+            supervisionRequest.StatusId = requestStatusesToSeed.First(rs => rs.Name == "ACCEPTED").Id; // Assume accepted for simplicity
+            thesisRequestsToSeed.Add(supervisionRequest);
+
+            // Create a co-supervision request from tutor to second supervisor
+            if (thesis.SecondSupervisorId.HasValue)
+            {
+                var coSupervisionRequest = thesisRequestFaker.Generate();
+                coSupervisionRequest.RequesterId = thesis.TutorId;
+                coSupervisionRequest.ReceiverId = thesis.SecondSupervisorId.Value;
+                coSupervisionRequest.ThesisId = thesis.Id;
+                coSupervisionRequest.RequestTypeId = requestTypesToSeed.First(rt => rt.Name == "CO_SUPERVISION").Id;
+                coSupervisionRequest.StatusId = requestStatusesToSeed.First(rs => rs.Name == "ACCEPTED").Id; // Assume accepted for simplicity
+                thesisRequestsToSeed.Add(coSupervisionRequest);
+            }
+        }
+        
+        // --- 13. Serialize and Save ---
         // Combine all generated data into a single object.
-        var seedData = new { Users = users, Roles = rolesToSeed, UserRoles = userRolesToSeed, BillingStatuses = billingStatusesToSeed, ThesisStatuses = thesisStatusesToSeed, Topics = topicsToSeed, UserTopics = userTopicsToSeed, Theses = thesesToSeed, ThesisDocuments = thesisDocumentsToSeed };
+        var seedData = new { Users = users, Roles = rolesToSeed, UserRoles = userRolesToSeed, BillingStatuses = billingStatusesToSeed, ThesisStatuses = thesisStatusesToSeed, Topics = topicsToSeed, UserTopics = userTopicsToSeed, Theses = thesesToSeed, ThesisDocuments = thesisDocumentsToSeed, ThesisRequests = thesisRequestsToSeed, RequestTypes = requestTypesToSeed, RequestStatuses = requestStatusesToSeed };
         
         // Serialize the data to JSON with indentation for readability.
         var json = JsonSerializer.Serialize(seedData, new JsonSerializerOptions { WriteIndented = true });
