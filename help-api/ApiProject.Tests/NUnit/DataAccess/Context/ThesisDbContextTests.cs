@@ -83,7 +83,6 @@ public class ThesisDbContextTests
         {
             Id = Guid.NewGuid(),
             Title = "Test Thesis",
-            SubjectArea = "Computer Science",
             OwnerId = owner.Id,
             TutorId = tutor.Id,
             StatusId = status.Id,
@@ -123,7 +122,6 @@ public class ThesisDbContextTests
             Id = Guid.NewGuid(),
             Title = "Test Topic",
             Description = "Description",
-            SubjectArea = "CS",
             IsActive = true
         };
 
@@ -182,7 +180,6 @@ public class ThesisDbContextTests
         {
             Id = Guid.NewGuid(),
             Title = "Thesis",
-            SubjectArea = "CS",
             OwnerId = owner.Id,
             TutorId = tutor.Id,
             StatusId = status.Id,

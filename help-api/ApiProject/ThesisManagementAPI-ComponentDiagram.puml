@@ -2,18 +2,41 @@
 
 title Thesis Management API - Component Diagram
 
-package "Thesis Management API" {
+!theme vibrant
+
+package "Presentation Layer" {
     [API Controllers] as Api
-    [Business Logic] as Business
-    [Data Access] as Data
+    note right of Api
+        - AuthController
+        - UserController
+        - TutorController
+        - TopicController
+        - ThesisController
+    end note
 }
 
-[API Client] ..> Api
+package "Business Logic Layer" {
+    [Services] as Business
+    note right of Business
+        - IUserBusinessLogicService
+        - IThesisService
+        - ITopicService
+    end note
+}
 
-Api -> Business
-Business -> Data
+package "Data Access Layer" {
+    [Repositories / DbContext] as Data
+    note right of Data
+        - ThesisDbContext
+    end note
+}
 
 database "Thesis Database" as DB
-Data -> DB
+
+[External Application] ..> Api : HTTP/S Requests
+
+Api -> Business : In-memory calls
+Business -> Data : In-memory calls
+Data -> DB : Database queries (SQL)
 
 @enduml

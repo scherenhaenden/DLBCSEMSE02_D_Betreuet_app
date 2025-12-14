@@ -7,34 +7,36 @@ left to right direction
 actor Student
 actor Tutor
 actor Admin
+actor "External Application" as App
 
 rectangle "Thesis Management System" {
-    usecase "Manage Own Profile" as UC1
-    usecase "Search for Topics" as UC2
-    usecase "Apply for a Thesis" as UC3
-    usecase "Submit Thesis" as UC4
-
-    usecase "Manage Topics" as UC5
-    usecase "Review Thesis Applications" as UC6
-    usecase "Grade Thesis" as UC7
-
-    usecase "Manage All Users" as UC8
-    usecase "Manage All Theses" as UC9
-    usecase "Manage All Topics" as UC10
+    usecase "Login" as UC_LOGIN
+    usecase "Search for Tutors by Topic" as UC_SEARCH_TUTORS
+    usecase "View Tutor Profile" as UC_VIEW_TUTOR
+    
+    usecase "View Own Theses" as UC_VIEW_OWN_THESES
+    usecase "Create Thesis" as UC_CREATE_THESIS
+    
+    usecase "View Assigned Theses" as UC_VIEW_ASSIGNED_THESES
+    usecase "Update Thesis" as UC_UPDATE_THESIS
+    
+    usecase "Manage All Users" as UC_MANAGE_USERS
+    usecase "Manage All Topics" as UC_MANAGE_TOPICS
+    usecase "Manage All Theses" as UC_MANAGE_THESES
 }
 
-Student --> (UC1)
-Student --> (UC2)
-Student --> (UC3)
-Student --> (UC4)
+App --> UC_LOGIN
+App --> UC_SEARCH_TUTORS
+App --> UC_VIEW_TUTOR
 
-Tutor --> (UC1)
-Tutor --> (UC5)
-Tutor --> (UC6)
-Tutor --> (UC7)
+Student -> UC_VIEW_OWN_THESES
+Student -> UC_CREATE_THESIS
 
-Admin --> (UC8)
-Admin --> (UC9)
-Admin --> (UC10)
+Tutor -> UC_VIEW_ASSIGNED_THESES
+Tutor -> UC_UPDATE_THESIS
+
+Admin -> UC_MANAGE_USERS
+Admin -> UC_MANAGE_TOPICS
+Admin -> UC_MANAGE_THESES
 
 @enduml

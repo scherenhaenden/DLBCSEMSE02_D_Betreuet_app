@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace ApiProject.DatabaseAccess.Entities
 {
     [Table("Users")]
-    public sealed class UserDataAccessModel : BaseEntity
+    public class UserDataAccessModel : BaseEntity
     {
         public required string FirstName { get; set; }
         public required string LastName { get; set; }

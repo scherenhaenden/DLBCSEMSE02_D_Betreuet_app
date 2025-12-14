@@ -1,20 +1,56 @@
 <!DOCTYPE html>
-<html lang='de'>
+<html lang="en">
 <head>
-    <meta charset='UTF-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thesis Management API</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
-        h1 { color: #333; }
-        a { display: inline-block; margin-top: 20px; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; }
-        a:hover { background-color: #0056b3; }
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            padding: 2rem;
+            border: 1px solid #333;
+            border-radius: 8px;
+            background-color: #1e1e1e;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+        p {
+            margin-bottom: 2rem;
+            color: #b0b0b0;
+        }
+        a.button {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: #bb86fc;
+            color: #000;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        a.button:hover {
+            background-color: #9965f4;
+        }
     </style>
 </head>
 <body>
-    <h1>Willkommen zur Thesis Management API</h1>
-    <p>Die API ist bereit und funktioniert. Verwenden Sie die folgenden Optionen:</p>
-    <a href='/swagger'>Swagger-Dokumentation öffnen</a>
+    <div class="container">
+        <h1>Thesis Management API</h1>
+        <p>Welcome to the backend service for the Thesis Management System.</p>
+        <a href="/swagger" class="button">Open API Documentation</a>
+    </div>
 </body>
 </html>
-

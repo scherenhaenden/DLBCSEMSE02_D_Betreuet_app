@@ -118,7 +118,6 @@ namespace ApiProject.ApiLogic.Controllers
                 Id = topic.Id,
                 Title = topic.Title,
                 Description = topic.Description,
-                SubjectArea = topic.SubjectArea,
                 IsActive = topic.IsActive,
                 TutorIds = topic.TutorIds
             };
