@@ -1,29 +1,31 @@
 package com.example.betreuer_app.model;
 
-public enum BillingStatus {
-    NONE(0, "Keine Rechnung", "Es wurde noch keine Rechnung gestellt."),
-    ISSUED(1, "Rechnung gestellt", "Die Rechnung wurde ausgestellt."),
-    PAID(2, "Rechnung bezahlt", "Die Rechnung wurde beglichen.");
+import java.util.List;
 
-    private final int guiId;
-    private final String name;
-    private final String description;
+public class BillingStatus extends BaseEntity {
+    private String name;
+    private List<Thesis> theses;
 
-    BillingStatus(int guiId, String name, String description) {
-        this.guiId = guiId;
-        this.name = name;
-        this.description = description;
+    public BillingStatus() {
     }
 
-    public int getGuiId() {
-        return guiId;
+    public BillingStatus(String name) {
+        this.name = name;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getDescription() {
-        return description;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Thesis> getTheses() {
+        return theses;
+    }
+
+    public void setTheses(List<Thesis> theses) {
+        this.theses = theses;
     }
 }

@@ -12,10 +12,6 @@ public class Thesis {
         IN_DISCUSSION, REGISTERED, SUBMITTED, COLLOQUIUM_HELD
     }
 
-    public enum BillingStatus {
-        NONE, ISSUED, PAID
-    }
-
     // Attributes
 
     private UUID id;

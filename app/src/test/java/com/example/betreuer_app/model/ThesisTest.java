@@ -31,7 +31,7 @@ public class ThesisTest {
                 supervisorId,
                 secondExaminerId,
                 "/path/expose.pdf",
-                Thesis.BillingStatus.NONE
+                new BillingStatus("NONE")
         );
     }
 
@@ -45,7 +45,7 @@ public class ThesisTest {
         assertEquals(supervisorId, thesis.getSupervisorId());
         assertEquals(secondExaminerId, thesis.getSecondExaminerId());
         assertEquals("/path/expose.pdf", thesis.getExposePath());
-        assertEquals(Thesis.BillingStatus.NONE, thesis.getBillingStatus());
+        assertEquals("NONE", thesis.getBillingStatus().getName());
     }
 
     @Test
@@ -95,7 +95,7 @@ public class ThesisTest {
 
     @Test
     public void testSetBillingStatus() {
-        thesis.setBillingStatus(Thesis.BillingStatus.PAID);
-        assertEquals(Thesis.BillingStatus.PAID, thesis.getBillingStatus());
+        thesis.setBillingStatus(new BillingStatus("PAID"));
+        assertEquals("PAID", thesis.getBillingStatus().getName());
     }
 }
