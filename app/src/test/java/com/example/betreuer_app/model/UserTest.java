@@ -59,10 +59,13 @@ public class UserTest {
 
     @Test
     /**
-     * Tests setting the user's role to TUTOR and verifies the role.
+     * Tests setting the user's roles by adding a new role.
      */
-    public void testSetRole() {
-        user.setRole(new Role("TUTOR"));
-        assertEquals("TUTOR", user.getRole().getName());
+    public void testSetUserRoles() {
+        UserRole userRole = new UserRole();
+        userRole.setRole(new Role("TUTOR"));
+        user.getUserRoles().add(userRole);
+        assertEquals(1, user.getUserRoles().size());
+        assertEquals("TUTOR", user.getUserRoles().get(0).getRole().getName());
     }
 }

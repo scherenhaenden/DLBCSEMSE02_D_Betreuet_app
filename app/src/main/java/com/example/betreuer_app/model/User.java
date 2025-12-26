@@ -1,5 +1,6 @@
 package com.example.betreuer_app.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,6 +34,8 @@ public class User extends BaseEntity {
         this.lastName = lastName;
         this.email = email;
         this.passwordHash = passwordHash;
+        this.userRoles = new ArrayList<>();
+        this.userTopics = new ArrayList<>();
     }
 
     /**
