@@ -26,7 +26,8 @@ public class ThesisApiModel extends BaseEntityApiModel {
      * Constructor with basic fields.
      */
     public ThesisApiModel(String id, String title, String status, String billingStatus, String ownerId, String tutorId, String secondSupervisorId, String topicId) {
-        super(UUID.fromString(id));
+        super();
+        setId(UUID.fromString(id));
         this.title = title;
         this.status = status;
         this.billingStatus = billingStatus;
@@ -40,7 +41,8 @@ public class ThesisApiModel extends BaseEntityApiModel {
      * Full constructor.
      */
     public ThesisApiModel(String id, String title, String status, String billingStatus, String ownerId, String tutorId, String secondSupervisorId, String topicId, String documentFileName) {
-        super(UUID.fromString(id));
+        super();
+        setId(UUID.fromString(id));
         this.title = title;
         this.status = status;
         this.billingStatus = billingStatus;

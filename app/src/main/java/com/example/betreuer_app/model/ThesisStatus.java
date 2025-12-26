@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class ThesisStatus extends BaseEntityApiModel {
     private String name;
-    private List<Thesis> theses;
+    private List<ThesisApiModel> theses;
 
     /**
      * Default constructor.
@@ -42,17 +42,17 @@ public class ThesisStatus extends BaseEntityApiModel {
 
     /**
      * Returns the list of theses with this status.
-     * @return The list of Thesis objects.
+     * @return The list of ThesisApiModel objects.
      */
-    public List<Thesis> getTheses() {
+    public List<ThesisApiModel> getTheses() {
         return theses;
     }
 
     /**
      * Sets the list of theses with this status.
-     * @param theses The new list of Thesis objects.
+     * @param theses The new list of ThesisApiModel objects.
      */
-    public void setTheses(List<Thesis> theses) {
+    public void setTheses(List<ThesisApiModel> theses) {
         this.theses = theses;
     }
 }

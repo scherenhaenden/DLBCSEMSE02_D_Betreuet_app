@@ -51,12 +51,12 @@ public class ThesisStatusViewModel extends ViewModel {
         RoleApiModel role = currentUserRole.getValue();
         if (thesis == null || role == null) return false;
 
-        ThesisStatus status = thesis.getStatus();
+        String status = thesis.getStatus();
 
         if ("STUDENT".equals(role.getName())) {
-            return "IN_DISCUSSION".equals(status.getName()) || "REGISTERED".equals(status.getName());
+            return "IN_DISCUSSION".equals(status) || "REGISTERED".equals(status);
         } else {
-            return "IN_DISCUSSION".equals(status.getName()) || "SUBMITTED".equals(status.getName());
+            return "IN_DISCUSSION".equals(status) || "SUBMITTED".equals(status);
         }
     }
 
@@ -67,11 +67,11 @@ public class ThesisStatusViewModel extends ViewModel {
         ThesisApiModel thesis = thesisData.getValue();
         if (thesis == null) return null;
 
-        switch (thesis.getStatus().getName()) {
+        switch (thesis.getStatus()) {
             case "IN_DISCUSSION": return new ThesisStatus("REGISTERED");
             case "REGISTERED":    return new ThesisStatus("SUBMITTED");
-            case "SUBMITTED":     return new ThesisStatus("COLLOQUIUM_HELD");
-            default:            return thesis.getStatus();
+            case "SUBMITTED":     return new ThesisStatus("DEFENDED");
+            default:            return new ThesisStatus(thesis.getStatus());
         }
     }
 }

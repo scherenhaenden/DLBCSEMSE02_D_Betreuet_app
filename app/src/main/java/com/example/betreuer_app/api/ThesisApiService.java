@@ -1,6 +1,6 @@
 package com.example.betreuer_app.api;
 
-import com.example.betreuer_app.model.Thesis;
+import com.example.betreuer_app.model.ThesisApiModel;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.PATCH;
@@ -18,7 +18,7 @@ public interface ThesisApiService {
      * @param request Das Request-Objekt mit dem neuen Status.
      */
     @PATCH("theses/{id}/status")
-    Call<Thesis> updateStatus(@Path("id") String id, @Body StatusUpdateRequest request);
+    Call<ThesisApiModel> updateStatus(@Path("id") String id, @Body StatusUpdateRequest request);
 
     /**
      * Datenmodell für das Status-Update-Request.
