@@ -65,6 +65,8 @@ public class UserTest {
      * Tests setting the user's roles by adding a new role.
      */
     public void testSetUserRoles() {
+        UserRoleApiModel userRole = new UserRoleApiModel();
+        userRole.setRole(new RoleApiModel("TUTOR"));
         user.getRoles().add("TUTOR");
         assertEquals(2, user.getRoles().size());
         assertEquals("USER", user.getRoles().get(0));

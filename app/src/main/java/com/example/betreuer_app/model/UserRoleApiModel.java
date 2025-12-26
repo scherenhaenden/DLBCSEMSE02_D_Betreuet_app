@@ -6,7 +6,7 @@ import java.util.UUID;
  * Represents the assignment of a user to a role.
  * This is a junction table for the many-to-many relationship between User and Role.
  */
-public class UserRole {
+public class UserRoleApiModel extends BaseEntityApiModel {
     private String userId;
     private UserApiModel user;
     private UUID roleId;

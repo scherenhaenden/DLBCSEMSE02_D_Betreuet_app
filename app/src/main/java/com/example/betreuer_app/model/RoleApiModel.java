@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class RoleApiModel extends BaseEntityApiModel {
     private String name;
-    private List<UserRole> userRoles;
+    private List<UserRoleApiModel> userRoles;
 
     /**
      * Default constructor.
@@ -44,7 +44,7 @@ public class RoleApiModel extends BaseEntityApiModel {
      * Returns the list of user roles.
      * @return The list of UserRole objects.
      */
-    public List<UserRole> getUserRoles() {
+    public List<UserRoleApiModel> getUserRoles() {
         return userRoles;
     }
 
@@ -52,7 +52,7 @@ public class RoleApiModel extends BaseEntityApiModel {
      * Sets the list of user roles.
      * @param userRoles The new list of UserRole objects.
      */
-    public void setUserRoles(List<UserRole> userRoles) {
+    public void setUserRoles(List<UserRoleApiModel> userRoles) {
         this.userRoles = userRoles;
     }
 }
