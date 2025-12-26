@@ -25,7 +25,7 @@ public class ThesisStatusViewModel extends ViewModel {
 
         Thesis.Status status = thesis.getStatus();
 
-        if (role == Role.STUDENT) {
+        if ("STUDENT".equals(role.getName())) {
             switch (status) {
                 case IN_DISCUSSION: return "In Bearbeitung setzen";
                 case REGISTERED:    return "Arbeit jetzt abgeben";
@@ -51,7 +51,7 @@ public class ThesisStatusViewModel extends ViewModel {
 
         Thesis.Status status = thesis.getStatus();
 
-        if (role == Role.STUDENT) {
+        if ("STUDENT".equals(role.getName())) {
             return status == Thesis.Status.IN_DISCUSSION || status == Thesis.Status.REGISTERED;
         } else {
             return status == Thesis.Status.IN_DISCUSSION || status == Thesis.Status.SUBMITTED;

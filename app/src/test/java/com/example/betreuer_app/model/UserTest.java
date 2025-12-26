@@ -17,7 +17,7 @@ public class UserTest {
      */
     public void setUp() {
         userId = UUID.randomUUID();
-        user = new User(userId, "John Doe", "john.doe@example.com", Role.STUDENT);
+        user = new User(userId, "John Doe", "john.doe@example.com", new Role("STUDENT"));
     }
 
     @Test
@@ -28,7 +28,7 @@ public class UserTest {
         assertEquals(userId, user.getId());
         assertEquals("John Doe", user.getName());
         assertEquals("john.doe@example.com", user.getEmail());
-        assertEquals(Role.STUDENT, user.getRole());
+        assertEquals("STUDENT", user.getRole().getName());
     }
 
     @Test
@@ -55,7 +55,7 @@ public class UserTest {
      * Tests setting the user's role to TUTOR and verifies the role.
      */
     public void testSetRole() {
-        user.setRole(Role.TUTOR);
-        assertEquals(Role.TUTOR, user.getRole());
+        user.setRole(new Role("TUTOR"));
+        assertEquals("TUTOR", user.getRole().getName());
     }
 }

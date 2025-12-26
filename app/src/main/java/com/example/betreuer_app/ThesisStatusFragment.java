@@ -3,6 +3,7 @@ package com.example.betreuer_app;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,7 +16,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.betreuer_app.model.Thesis;
 import com.example.betreuer_app.viewmodel.ThesisStatusViewModel;
-import com.google.android.material.button.MaterialButton;
 
 /**
  * Fragment zur Anzeige und Steuerung des Arbeitsstatus.
@@ -27,7 +27,7 @@ public class ThesisStatusFragment extends Fragment {
     
     private ImageView iconRegistered, iconInProgress, iconSubmitted, iconGraded;
     private TextView titleRegistered, titleInProgress, titleSubmitted, titleGraded;
-    private MaterialButton actionButton;
+    private Button actionButton;
 
     public ThesisStatusFragment() {
         super(R.layout.fragment_thesis_status);
@@ -92,10 +92,10 @@ public class ThesisStatusFragment extends Fragment {
         int iconRes;
 
         if (completed) {
-            color = ContextCompat.getColor(requireContext(), R.color.design_default_color_primary);
+            color = ContextCompat.getColor(requireContext(), android.R.color.holo_blue_dark);
             iconRes = R.drawable.ic_status_complete;
         } else if (isActive) {
-            color = ContextCompat.getColor(requireContext(), R.color.design_default_color_primary);
+            color = ContextCompat.getColor(requireContext(), android.R.color.holo_orange_light);
             iconRes = R.drawable.ic_status_current;
         } else {
             color = ContextCompat.getColor(requireContext(), android.R.color.darker_gray);
