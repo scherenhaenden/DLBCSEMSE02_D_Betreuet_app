@@ -31,7 +31,7 @@ public class ThesisTest {
                 supervisorId,
                 secondExaminerId,
                 "/path/expose.pdf",
-                new BillingStatus("NONE")
+                new BillingStatusApiModel("NONE")
         );
     }
 
@@ -95,7 +95,7 @@ public class ThesisTest {
 
     @Test
     public void testSetBillingStatus() {
-        thesis.setBillingStatus(new BillingStatus("PAID"));
+        thesis.setBillingStatus(new BillingStatusApiModel("PAID"));
         assertEquals("PAID", thesis.getBillingStatus().getName());
     }
 }

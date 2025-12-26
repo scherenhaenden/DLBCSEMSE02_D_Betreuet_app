@@ -6,10 +6,10 @@ import java.util.UUID;
  * Represents a thesis in the system.
  * Contains information about the thesis, its status, billing, and relationships to users and topics.
  */
-public class Thesis extends BaseEntity {
+public class Thesis extends BaseEntityApiModel {
     private String title;
     private ThesisStatus status;
-    private BillingStatus billingStatus;
+    private BillingStatusApiModel billingStatus;
     private UUID ownerId;
     private UUID tutorId;
     private UUID secondSupervisorId;
@@ -31,7 +31,7 @@ public class Thesis extends BaseEntity {
      * @param secondSupervisorId The ID of the second supervisor.
      * @param topicId The ID of the topic.
      */
-    public Thesis(String title, ThesisStatus status, BillingStatus billingStatus, UUID ownerId, UUID tutorId, UUID secondSupervisorId, UUID topicId) {
+    public Thesis(String title, ThesisStatus status, BillingStatusApiModel billingStatus, UUID ownerId, UUID tutorId, UUID secondSupervisorId, UUID topicId) {
         this.title = title;
         this.status = status;
         this.billingStatus = billingStatus;
@@ -77,7 +77,7 @@ public class Thesis extends BaseEntity {
      * Returns the billing status of the thesis.
      * @return The BillingStatus object.
      */
-    public BillingStatus getBillingStatus() {
+    public BillingStatusApiModel getBillingStatus() {
         return billingStatus;
     }
 
@@ -85,7 +85,7 @@ public class Thesis extends BaseEntity {
      * Sets the billing status of the thesis.
      * @param billingStatus The new BillingStatus object.
      */
-    public void setBillingStatus(BillingStatus billingStatus) {
+    public void setBillingStatus(BillingStatusApiModel billingStatus) {
         this.billingStatus = billingStatus;
     }
 

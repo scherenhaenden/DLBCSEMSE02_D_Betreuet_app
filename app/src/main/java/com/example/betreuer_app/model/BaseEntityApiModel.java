@@ -7,7 +7,7 @@ import java.util.UUID;
  * Base class for all entities in the system.
  * Provides common fields such as ID, creation and update timestamps.
  */
-public abstract class BaseEntity {
+public abstract class BaseEntityApiModel {
     private UUID id = UUID.randomUUID();
     private Date createdAt = new Date();
     private Date updatedAt = new Date();

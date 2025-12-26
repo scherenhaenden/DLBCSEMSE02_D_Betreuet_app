@@ -6,7 +6,7 @@ import java.util.List;
  * Represents a topic for a thesis.
  * Topics are areas of research that theses can be associated with.
  */
-public class Topic extends BaseEntity {
+public class Topic extends BaseEntityApiModel {
     private String title;
     private String description;
     private boolean isActive;

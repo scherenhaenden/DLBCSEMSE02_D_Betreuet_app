@@ -6,21 +6,21 @@ import java.util.List;
  * Represents a billing status for a thesis.
  * Billing statuses indicate the payment state of a thesis.
  */
-public class BillingStatus extends BaseEntity {
+public class BillingStatusApiModel extends BaseEntityApiModel {
     private String name;
     private List<Thesis> theses;
 
     /**
      * Default constructor.
      */
-    public BillingStatus() {
+    public BillingStatusApiModel() {
     }
 
     /**
      * Constructor for a new billing status.
      * @param name The name of the billing status.
      */
-    public BillingStatus(String name) {
+    public BillingStatusApiModel(String name) {
         this.name = name;
     }
 

@@ -8,13 +8,13 @@ public class BillingStatusTest {
 
     @Test
     public void testConstructorAndGetters() {
-        BillingStatus status = new BillingStatus("Keine Rechnung");
+        BillingStatusApiModel status = new BillingStatusApiModel("Keine Rechnung");
         assertEquals("Keine Rechnung", status.getName());
     }
 
     @Test
     public void testSetName() {
-        BillingStatus status = new BillingStatus();
+        BillingStatusApiModel status = new BillingStatusApiModel();
         status.setName("Rechnung gestellt");
         assertEquals("Rechnung gestellt", status.getName());
     }

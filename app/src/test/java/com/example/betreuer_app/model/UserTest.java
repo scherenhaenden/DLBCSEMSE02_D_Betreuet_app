@@ -63,7 +63,7 @@ public class UserTest {
      */
     public void testSetUserRoles() {
         UserRole userRole = new UserRole();
-        userRole.setRole(new Role("TUTOR"));
+        userRole.setRole(new RoleApiModel("TUTOR"));
         user.getUserRoles().add(userRole);
         assertEquals(1, user.getUserRoles().size());
         assertEquals("TUTOR", user.getUserRoles().get(0).getRole().getName());

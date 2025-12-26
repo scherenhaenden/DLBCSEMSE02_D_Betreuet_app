@@ -10,7 +10,7 @@ public class UserRole {
     private UUID userId;
     private User user;
     private UUID roleId;
-    private Role role;
+    private RoleApiModel role;
 
     /**
      * Returns the user ID.
@@ -64,7 +64,7 @@ public class UserRole {
      * Returns the Role object.
      * @return The Role object.
      */
-    public Role getRole() {
+    public RoleApiModel getRole() {
         return role;
     }
 
@@ -72,7 +72,7 @@ public class UserRole {
      * Sets the Role object.
      * @param role The new Role object.
      */
-    public void setRole(Role role) {
+    public void setRole(RoleApiModel role) {
         this.role = role;
     }
 }

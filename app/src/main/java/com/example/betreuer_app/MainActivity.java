@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.betreuer_app.api.ApiClient;
 import com.example.betreuer_app.api.UserApiService;
-import com.example.betreuer_app.model.BillingStatus;
+import com.example.betreuer_app.model.BillingStatusApiModel;
 import com.example.betreuer_app.model.Thesis;
 import com.example.betreuer_app.model.ThesisStatus;
 import com.example.betreuer_app.model.UserApi;
@@ -42,9 +42,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Dummy-Daten erstellen
         List<Thesis> thesisList = new ArrayList<>();
-        thesisList.add(new Thesis("Entwicklung einer mobilen App", new ThesisStatus("REGISTERED"), new BillingStatus("ISSUED"), UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID()));
-        thesisList.add(new Thesis("Analyse von KI-Algorithmen", new ThesisStatus("IN_DISCUSSION"), new BillingStatus("NONE"), UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID()));
-        thesisList.add(new Thesis("Umweltstudie zur Nachhaltigkeit", new ThesisStatus("SUBMITTED"), new BillingStatus("PAID"), UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID()));
+        thesisList.add(new Thesis("Entwicklung einer mobilen App", new ThesisStatus("REGISTERED"), new BillingStatusApiModel("ISSUED"), UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID()));
+        thesisList.add(new Thesis("Analyse von KI-Algorithmen", new ThesisStatus("IN_DISCUSSION"), new BillingStatusApiModel("NONE"), UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID()));
+        thesisList.add(new Thesis("Umweltstudie zur Nachhaltigkeit", new ThesisStatus("SUBMITTED"), new BillingStatusApiModel("PAID"), UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID()));
 
         // RecyclerView einrichten
         RecyclerView recyclerView = findViewById(R.id.recyclerView);

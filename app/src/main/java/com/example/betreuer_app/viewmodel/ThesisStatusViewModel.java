@@ -2,8 +2,8 @@ package com.example.betreuer_app.viewmodel;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import com.example.betreuer_app.model.BillingStatus;
-import com.example.betreuer_app.model.Role;
+
+import com.example.betreuer_app.model.RoleApiModel;
 import com.example.betreuer_app.model.Thesis;
 import com.example.betreuer_app.model.ThesisStatus;
 
@@ -14,14 +14,14 @@ import com.example.betreuer_app.model.ThesisStatus;
 public class ThesisStatusViewModel extends ViewModel {
 
     public MutableLiveData<Thesis> thesisData = new MutableLiveData<>();
-    public MutableLiveData<Role> currentUserRole = new MutableLiveData<>();
+    public MutableLiveData<RoleApiModel> currentUserRole = new MutableLiveData<>();
 
     /**
      * Liefert den passenden Text für den Action-Button basierend auf dem aktuellen Status und der Benutzerrolle.
      */
     public String getActionButonText() {
         Thesis thesis = thesisData.getValue();
-        Role role = currentUserRole.getValue();
+        RoleApiModel role = currentUserRole.getValue();
 
         if (thesis == null || role == null) return "Lädt...";
 
@@ -48,7 +48,7 @@ public class ThesisStatusViewModel extends ViewModel {
      */
     public boolean isActionButtonEnabled() {
         Thesis thesis = thesisData.getValue();
-        Role role = currentUserRole.getValue();
+        RoleApiModel role = currentUserRole.getValue();
         if (thesis == null || role == null) return false;
 
         ThesisStatus status = thesis.getStatus();

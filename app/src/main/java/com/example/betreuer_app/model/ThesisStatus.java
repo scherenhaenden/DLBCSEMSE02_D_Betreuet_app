@@ -6,7 +6,7 @@ import java.util.List;
  * Represents a status for a thesis.
  * Thesis statuses indicate the progress state of a thesis.
  */
-public class ThesisStatus extends BaseEntity {
+public class ThesisStatus extends BaseEntityApiModel {
     private String name;
     private List<Thesis> theses;
 
