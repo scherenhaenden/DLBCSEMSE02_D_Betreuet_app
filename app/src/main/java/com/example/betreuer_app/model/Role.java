@@ -1,34 +1,31 @@
 package com.example.betreuer_app.model;
 
-public enum Role {
-    STUDENT(1, "Student", "Ein Student, der eine Abschlussarbeit schreibt."),
-    TUTOR(2, "Tutor", "Ein Betreuer, der Abschlussarbeiten betreut.");
+import java.util.List;
 
-    private final int guiId;
-    private final String name;
-    private final String description;
+public class Role extends BaseEntity {
+    private String name;
+    private List<UserRole> userRoles;
 
-    Role(int guiId, String name, String description) {
-        this.guiId = guiId;
+    public Role() {
+    }
+
+    public Role(String name) {
         this.name = name;
-        this.description = description;
     }
 
-    public int getGuiId() {
-        return guiId;
-    }
-
-    /**
-     * Returns the name.
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     * Returns the description.
-     */
-    public String getDescription() {
-        return description;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<UserRole> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(List<UserRole> userRoles) {
+        this.userRoles = userRoles;
     }
 }
