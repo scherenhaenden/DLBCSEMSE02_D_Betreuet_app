@@ -38,7 +38,7 @@ public class ThesisAdapter extends RecyclerView.Adapter<ThesisAdapter.ThesisView
         Thesis thesis = thesisList.get(position);
         holder.textViewTitel.setText(thesis.getTitle());
         holder.textViewFachgebiet.setText(thesis.getFieldOfStudy());
-        holder.textViewStatus.setText("Status: " + thesis.getStatus());
+        holder.textViewStatus.setText("Status: " + thesis.getStatus().getName());
         holder.textViewRechnungsstatus.setText("Rechnung: " + thesis.getBillingStatus().getName());
     }
 

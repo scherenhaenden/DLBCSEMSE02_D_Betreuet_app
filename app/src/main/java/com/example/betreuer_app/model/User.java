@@ -1,90 +1,74 @@
 package com.example.betreuer_app.model;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
  * Represents a user in the application.
  */
-public class User {
-    private UUID id;
-    private String name;
+public class User extends BaseEntity {
+    private String firstName;
+    private String lastName;
     private String email;
-    private Role role;
+    private String passwordHash;
+    private List<UserRole> userRoles;
+    private List<UserTopic> userTopics;
 
-    /**
-     * Constructs a new User object.
-     * @param id The user's ID.
-     * @param name The user's name.
-     * @param email The user's email address.
-     * @param role The user's role.
-     */
-    public User(UUID id, String name, String email, Role role) {
-        this.id = id;
-        this.name = name;
+    public User() {
+    }
+
+    public User(String firstName, String lastName, String email, String passwordHash) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
-        this.role = role;
+        this.passwordHash = passwordHash;
     }
 
-    /**
-     * Returns the user's ID.
-     * @return The ID.
-     */
-    public UUID getId() {
-        return id;
+    public String getFirstName() {
+        return firstName;
     }
 
-    /**
-     * Sets the user's ID.
-     * @param id The new ID.
-     */
-    public void setId(UUID id) {
-        this.id = id;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    /**
-     * Returns the user's name.
-     * @return The name.
-     */
-    public String getName() {
-        return name;
+    public String getLastName() {
+        return lastName;
     }
 
-    /**
-     * Sets the user's name.
-     * @param name The new name.
-     */
-    public void setName(String name) {
-        this.name = name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    /**
-     * Returns the user's email address.
-     * @return The email address.
-     */
     public String getEmail() {
         return email;
     }
 
-    /**
-     * Sets the user's email address.
-     * @param email The new email address.
-     */
     public void setEmail(String email) {
         this.email = email;
     }
 
-    /**
-     * Returns the user's role.
-     */
-    public Role getRole() {
-        return role;
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
-    /**
-     * Sets the user's role.
-     * @param role The new role.
-     */
-    public void setRole(Role role) {
-        this.role = role;
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
+    public List<UserRole> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(List<UserRole> userRoles) {
+        this.userRoles = userRoles;
+    }
+
+    public List<UserTopic> getUserTopics() {
+        return userTopics;
+    }
+
+    public void setUserTopics(List<UserTopic> userTopics) {
+        this.userTopics = userTopics;
     }
 }

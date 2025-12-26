@@ -2,8 +2,10 @@ package com.example.betreuer_app.viewmodel;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import com.example.betreuer_app.model.Thesis;
+import com.example.betreuer_app.model.BillingStatus;
 import com.example.betreuer_app.model.Role;
+import com.example.betreuer_app.model.Thesis;
+import com.example.betreuer_app.model.ThesisStatus;
 
 /**
  * ViewModel zur Verwaltung des Status einer Abschlussarbeit.
@@ -23,19 +25,19 @@ public class ThesisStatusViewModel extends ViewModel {
 
         if (thesis == null || role == null) return "Lädt...";
 
-        Thesis.Status status = thesis.getStatus();
+        ThesisStatus status = thesis.getStatus();
 
         if ("STUDENT".equals(role.getName())) {
-            switch (status) {
-                case IN_DISCUSSION: return "In Bearbeitung setzen";
-                case REGISTERED:    return "Arbeit jetzt abgeben";
+            switch (status.getName()) {
+                case "IN_DISCUSSION": return "In Bearbeitung setzen";
+                case "REGISTERED":    return "Arbeit jetzt abgeben";
                 default:            return "Warten auf Betreuer";
             }
         } else {
-            switch (status) {
-                case IN_DISCUSSION: return "Anmeldung bestätigen";
-                case REGISTERED:    return "Warten auf Abgabe";
-                case SUBMITTED:     return "Kolloquium bestätigen";
+            switch (status.getName()) {
+                case "IN_DISCUSSION": return "Anmeldung bestätigen";
+                case "REGISTERED":    return "Warten auf Abgabe";
+                case "SUBMITTED":     return "Kolloquium bestätigen";
                 default:            return "Abgeschlossen";
             }
         }
@@ -49,26 +51,26 @@ public class ThesisStatusViewModel extends ViewModel {
         Role role = currentUserRole.getValue();
         if (thesis == null || role == null) return false;
 
-        Thesis.Status status = thesis.getStatus();
+        ThesisStatus status = thesis.getStatus();
 
         if ("STUDENT".equals(role.getName())) {
-            return status == Thesis.Status.IN_DISCUSSION || status == Thesis.Status.REGISTERED;
+            return "IN_DISCUSSION".equals(status.getName()) || "REGISTERED".equals(status.getName());
         } else {
-            return status == Thesis.Status.IN_DISCUSSION || status == Thesis.Status.SUBMITTED;
+            return "IN_DISCUSSION".equals(status.getName()) || "SUBMITTED".equals(status.getName());
         }
     }
 
     /**
      * Ermittelt den nachfolgenden Status für ein Update.
      */
-    public Thesis.Status getNextStatus() {
+    public ThesisStatus getNextStatus() {
         Thesis thesis = thesisData.getValue();
         if (thesis == null) return null;
 
-        switch (thesis.getStatus()) {
-            case IN_DISCUSSION: return Thesis.Status.REGISTERED;
-            case REGISTERED:    return Thesis.Status.SUBMITTED;
-            case SUBMITTED:     return Thesis.Status.COLLOQUIUM_HELD;
+        switch (thesis.getStatus().getName()) {
+            case "IN_DISCUSSION": return new ThesisStatus("REGISTERED");
+            case "REGISTERED":    return new ThesisStatus("SUBMITTED");
+            case "SUBMITTED":     return new ThesisStatus("COLLOQUIUM_HELD");
             default:            return thesis.getStatus();
         }
     }
