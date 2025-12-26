@@ -17,7 +17,7 @@ public class UserTest {
      */
     public void setUp() {
         userId = UUID.randomUUID();
-        user = new User(userId, "John Doe", "john.doe@example.com", new Role("STUDENT"));
+        user = new User("John", "Doe", "john.doe@example.com", "password");
     }
 
     @Test
@@ -26,9 +26,10 @@ public class UserTest {
      */
     public void testConstructorAndGetters() {
         assertEquals(userId, user.getId());
-        assertEquals("John Doe", user.getName());
+        assertEquals("John", user.getFirstName());
+        assertEquals("Doe", user.getLastName());
         assertEquals("john.doe@example.com", user.getEmail());
-        assertEquals("STUDENT", user.getRole().getName());
+        assertEquals("password", user.getPasswordHash());
     }
 
     @Test
@@ -39,9 +40,15 @@ public class UserTest {
     }
 
     @Test
-    public void testSetName() {
-        user.setName("Jane Doe");
-        assertEquals("Jane Doe", user.getName());
+    public void testSetFirstName() {
+        user.setFirstName("Jane");
+        assertEquals("Jane", user.getFirstName());
+    }
+
+    @Test
+    public void testSetLastName() {
+        user.setLastName("Smith");
+        assertEquals("Smith", user.getLastName());
     }
 
     @Test
