@@ -9,7 +9,6 @@ activity = "1.11.0"
 constraintlayout = "2.2.1"
 retrofit = "2.9.0"
 gson = "2.10.1"
-desugar_jdk_libs = "2.1.4"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
